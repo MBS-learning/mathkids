@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathKids Cloud System</title>
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --success: #2ECC71;
+            --warning: #F1C40F;
+            --danger: #E74C3C;
+            --dark: #2C3E50;
+            --light: #F8F9FA;
+        }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #EBF2FA; color: var(--dark); padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 25px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        header h1 { color: var(--primary); }
+        
+        /* Student Selector */
+        .student-selector { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
+        .student-card { background: white; padding: 15px 20px; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-width: 220px; }
+        .student-card.active { border-color: var(--primary); transform: translateY(-5px); background: #EDF5FF; }
+        
+        /* Layout Grid */
+        .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
+        
+        .card { background: white; padding: 22px; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .card h2 { margin-bottom: 15px; border-bottom: 2px solid #F0F2F5; padding-bottom: 10px; }
+        
+        /* Progress Tracker */
+        .progress-group { margin-bottom: 15px; }
+        .progress-bar-bg { background: #E0E0E0; height: 12px; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+        .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
+        
+        /* Timer & Tabs */
+        .timer-container { background: #E0E0E0; height: 8px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
+        .timer-bar { background: var(--danger); height: 100%; width: 100%; transition: width 1s linear; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { padding: 10px 15px; background: #D0DBE5; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Theory Box */
+        .theory-box { background: #FFF9E6; border-left: 5px solid var(--warning); padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; text-align: left; white-space: pre-line; line-height: 1.5; color: #795548; font-weight: 500; }
+        
+        /* Game Area */
+        .game-box { text-align: center; padding: 20px; background: #F9FAFB; border-radius: 12px; border: 2px dashed #CBD5E1; }
+        .question { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); min-height: 50px; display: flex; align-items: center; justify-content: center; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .option-btn { padding: 12px; font-size: 16px; border: 2px solid #CBD5E1; border-radius: 8px; background: white; cursor: pointer; font-weight: bold; }
+        .option-btn.selected { background: #FFEAA7; border-color: var(--warning); }
+        
+        /* Logs */
+        .history-list { max-height: 250px; overflow-y: auto; margin-top: 10px; }
+        .history-item { padding: 8px; border-bottom: 1px solid #EEE; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .status-saved { background: #E2E8F0; color: #4A5568; }
+        .status-correct { background: #D4EDDA; color: #155724; }
+        .status-wrong { background: #F8D7DA; color: #721C24; }
+        
+        .btn-action { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
+        .badge { display: inline-block; padding: 3px 8px; background: #E1F5FE; color: #0288D1; border-radius: 5px; font-size: 11px; font-weight: bold; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>MathKids Cloud Dashboard 🚀</h1>
+        <p>Hệ thống học tập cá nhân hóa chạy trực tuyến trên GitHub Pages</p>
+    </header>
+
+    <div class="student-selector">
+        <div class="student-card active" onclick="selectStudent('ut')" id="card-ut">
+            <h3>Clara 👶 (2022)</h3>
+            <span class="badge">Báo kết quả ngay</span>
+        </div>
+        <div class="student-card" onclick="selectStudent('giua')" id="card-giua">
+            <h3>Cris 👦 (2018)</h3>
+            <span class="badge" style="background:#FFF3CD; color:#856404;">Chữa bài cuối ngày</span>
+        </div>
+        <div class="student-card" onclick="selectStudent('lon')" id="card-lon">
+            <h3>Simon 2017 👧</h3>
+            <span class="badge" style="background:#FFF3CD; color:#856404;">Chữa bài cuối ngày</span>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div>
+            <div class="card">
+                <h2>Tiến Độ Hôm Nay</h2>
+                <div class="progress-group">
+                    <div style="display: flex; justify-content: space-between;"><strong>Clara:</strong> <span id="score-ut">0 Điểm</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-ut"></div></div>
+                </div>
+                <div class="progress-group">
+                    <div style="display: flex; justify-content: space-between;"><strong>Cris:</strong> <span id="score-giua">0 Điểm</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-giua"></div></div>
+                </div>
+                <div class="progress-group">
+                    <div style="display: flex; justify-content: space-between;"><strong>Simon:</strong> <span id="score-lon">0 Điểm</span></div>
+                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-lon"></div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Nhật Ký Làm Bài</h2>
+                <div id="history-title" style="font-weight: bold; color: var(--primary); margin-bottom: 5px;">Clara:</div>
+                <div class="history-list" id="log-list"></div>
+                <button class="btn-action" onclick="resetAllData()" style="background:var(--danger); font-size:11px; padding:5px;">Xóa sạch tiến độ</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="tabs">
+                    <button id="game-tab-btn" class="tab-btn active" onclick="switchTab('game')">🎮 Khu Vực Học Tập</button>
+                    <button id="review-tab-btn" class="tab-btn" onclick="switchTab('review')" style="background: #FFEAA7; display:none;">🔍 Góc Cha Mẹ Chữa Bài</button>
+                </div>
+
+                <div id="tab-game" class="tab-content active">
+                    <div class="game-box">
+                        <div class="timer-container"><div class="timer-bar" id="t-bar"></div></div>
+                        <p style="font-weight: bold; margin-bottom: 10px;">Thử thách của: <span id="current-player-name">Clara</span></p>
+                        
+                        <div class="theory-box" id="game-theory">Đang tải lý thuyết bí kíp...</div>
+                        
+                        <div class="question" id="game-question">Đang tải câu hỏi...</div>
+                        <div class="options-grid" id="game-options"></div>
+                        <p id="game-feedback" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
+                        <button id="btn-next-question" class="btn-action" onclick="loadNextQuestion()" style="display: none; background: #6C757D;">Qua câu tiếp theo ➡️</button>
+                    </div>
+                </div>
+
+                <div id="tab-review" class="tab-content">
+                    <div class="game-box" style="background: #FFFDF3; border-color: var(--warning);">
+                        <h3>👨‍👩‍👦 Bố Mẹ đồng hành cùng con</h3>
+                        <p style="margin-bottom: 15px; font-size: 14px; color: #555;">Xem lại chi tiết các câu các con đã chọn dưới đây để chấm điểm thực tế nhé!</p>
+                        <div id="review-zone" style="text-align: left;"></div>
+                        <button class="btn-action" onclick="gradeStudent()" style="background: var(--success); margin-top: 15px;">Chốt điểm ngày học cho con 🌟</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="questions.js"></script>
+
+<script>
+    let currentStudent = 'ut';
+    let currentIndex = 0; 
+    let currentQuestionData = {};
+    let timerInterval = null;
+    let timeLeft = 30; 
+    const maxTime = 30; // 30 giây bấm giờ phản xạ cho mỗi câu
+
+    let defaultData = {
+        ut: { score: 0, logs: [] },
+        giua: { score: 0, logs: [] },
+        lon: { score: 0, logs: [] }
+    };
+    
+    let appData = JSON.parse(localStorage.getItem('mathKidsGitHubData_v1')) || defaultData;
+
+    function saveData() {
+        localStorage.setItem('mathKidsGitHubData_v1', JSON.stringify(appData));
+    }
+
+    function selectStudent(studentId) {
+        currentStudent = studentId;
+        currentIndex = 0; 
+        document.querySelectorAll('.student-card').forEach(c => c.classList.remove('active'));
+        const card = document.getElementById(`card-${studentId}`);
+        if(card) card.classList.add('active');
+        
+        const nameMap = { ut: 'Clara', giua: 'Cris', lon: 'Simon' };
+        document.getElementById('current-player-name').innerText = nameMap[studentId];
+        
+        const reviewBtn = document.getElementById('review-tab-btn');
+        if(reviewBtn) {
+            reviewBtn.style.display = (studentId === 'ut') ? 'none' : 'block';
+        }
+        switchTab('game');
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        const tabBtn = document.getElementById(`${tabId}-tab-btn`);
+        if(tabBtn) tabBtn.classList.add('active');
+        const content = document.getElementById(`tab-${tabId}`);
+        if(content) content.classList.add('active');
+        
+        if(tabId === 'review') {
+            clearInterval(timerInterval);
+            renderReviewZone();
+        } else {
+            renderQuestion();
+        }
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = maxTime;
+        const bar = document.getElementById('t-bar');
+        if(bar) bar.style.width = '100%';
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            if(bar) bar.style.width = `${(timeLeft / maxTime) * 100}%`;
+            
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+                const feedback = document.getElementById('game-feedback');
+                
+                if(currentStudent === 'ut') {
+                    feedback.innerText = '⏰ Hết giờ rồi Clara ơi! Chúng mình thử câu khác nhé.';
+                    feedback.style.color = 'var(--danger)';
+                    setTimeout(loadNextQuestion, 3000);
+                } else {
+                    feedback.innerText = '⏰ Hết giờ! Đáp án đã được ghi nhận là Chưa hoàn thành.';
+                    feedback.style.color = 'var(--danger)';
+                    recordAnswer("Hết giờ ⏰");
+                }
+            }
+        }, 1000);
+    }
+
+    function renderQuestion() {
+        document.getElementById('game-feedback').innerText = '';
+        document.getElementById('btn-next-question').style.display = 'none';
+        const optionsEl = document.getElementById('game-options');
+        if(!optionsEl) return;
+        optionsEl.innerHTML = '';
+
+        if (typeof QUESTION_BANK === 'undefined' || !QUESTION_BANK[currentStudent] || QUESTION_BANK[currentStudent].length === 0) {
+            document.getElementById('game-question').innerText = "⚠️ Đang đồng bộ hoặc không tìm thấy file questions.js!";
+            clearInterval(timerInterval);
+            return;
+        }
+
+        if (currentIndex >= QUESTION_BANK[currentStudent].length) currentIndex = 0;
+
+        currentQuestionData = QUESTION_BANK[currentStudent][currentIndex];
+        document.getElementById('game-question').innerText = currentQuestionData.question;
+        document.getElementById('game-theory').innerText = currentQuestionData.theory || "Không có tóm tắt lý thuyết.";
+
+        currentQuestionData.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(opt, btn);
+            optionsEl.appendChild(btn);
+        });
+        startTimer();
+    }
+
+    function loadNextQuestion() {
+        currentIndex++;
+        renderQuestion();
+    }
+
+    function selectOption(selectedOpt, btnElement) {
+        clearInterval(timerInterval);
+        if (currentStudent === 'ut') {
+            const feedback = document.getElementById('game-feedback');
+            if(selectedOpt === currentQuestionData.answer) {
+                feedback.innerText = '🎉 Đúng rồi! Clara giỏi quá, mười điểm!'; feedback.style.color = 'var(--success)';
+                appData.ut.score = Math.min(appData.ut.score + 10, 100);
+                appData.ut.logs = appData.ut.logs.filter(l => l.q !== currentQuestionData.question);
+                appData.ut.logs.unshift({ q: currentQuestionData.question, myAns: selectedOpt, rightAns: currentQuestionData.answer, status: 'correct' });
+                saveData(); updateUI();
+                setTimeout(loadNextQuestion, 2000);
+            } else {
+                feedback.innerText = '❌ Chưa đúng rồi, Clara thử lại xem nào!'; feedback.style.color = 'var(--danger)';
+                startTimer();
+            }
+        } else {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btnElement.classList.add('selected');
+            recordAnswer(selectedOpt);
+        }
+    }
+
+    function recordAnswer(answerText) {
+        appData[currentStudent].logs = appData[currentStudent].logs.filter(l => l.q !== currentQuestionData.question);
+        appData[currentStudent].logs.unshift({
+            q: currentQuestionData.question,
+            myAns: answerText,
+            rightAns: currentQuestionData.answer,
+            status: 'saved'
+        });
+        saveData(); updateUI();
+        document.getElementById('game-feedback').innerText = '✔️ Đã lưu bài làm của con. Hãy bấm nút để sang câu tiếp theo!';
+        document.getElementById('game-feedback').style.color = '#4A5568';
+        document.getElementById('btn-next-question').style.display = 'inline-block';
+    }
+
+    function updateUI() {
+        ['ut', 'giua', 'lon'].forEach(id => {
+            document.getElementById(`score-${id}`).innerText = `${appData[id].score} / 100 Điểm`;
+            document.getElementById(`bar-${id}`).style.width = `${appData[id].score}%`;
+        });
+        const nameMap = { ut: 'Clara', giua: 'Cris', lon: 'Simon' };
+        document.getElementById('history-title').innerText = `${nameMap[currentStudent]}:`;
+        
+        const listEl = document.getElementById('log-list');
+        listEl.innerHTML = '';
+        if(!appData[currentStudent].logs || appData[currentStudent].logs.length === 0) {
+            listEl.innerHTML = '<div style="color:#888; font-size:12px; padding:10px;">Chưa có lịch sử làm bài.</div>';
+            return;
+        }
+        appData[currentStudent].logs.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            let badge = `<span class="status-badge status-${item.status}">${item.status==='saved'?'Chờ chấm':item.status==='correct'?'Đúng':'Sai'}</span>`;
+            div.innerHTML = `<div><strong>Q:</strong> ${item.q.substring(0,22)}... (Chọn: ${item.myAns})</div> ${badge}`;
+            listEl.appendChild(div);
+        });
+    }
+
+    function renderReviewZone() {
+        const zone = document.getElementById('review-zone');
+        zone.innerHTML = '';
+        const pendingLogs = appData[currentStudent].logs.filter(l => l.status === 'saved');
+        if(pendingLogs.length === 0) {
+            zone.innerHTML = '<p style="text-align:center; color:#2ECC71; font-weight:bold;">✨ Tuyệt vời! Không có bài làm nào đang chờ chữa.</p>';
+            return;
+        }
+        pendingLogs.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.style.cssText = "background:white; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid #E2E8F0;";
+            div.innerHTML = `
+                <p><strong>Câu ${idx+1}:</strong> ${item.q}</p>
+                <p style="margin-top:5px;">👉 Đáp án con chọn: <strong style="color:var(--primary); font-size:16px;">${item.myAns}</strong></p>
+                <div style="margin-top:8px; display:flex; gap:10px;">
+                    <button class="tab-btn" style="background:var(--success); color:white; padding:4px 12px; font-size:13px;" onclick="setReviewStatus('${item.q.replace(/'/g, "\\'")}', 'correct')">Con làm đúng 👍</button>
+                    <button class="tab-btn" style="background:var(--danger); color:white; padding:4px 12px; font-size:13px;" onclick="setReviewStatus('${item.q.replace(/'/g, "\\'")}', 'wrong')">Con làm sai ❌</button>
+                </div>
+                <p style="color:#E67E22; font-size:12px; margin-top:5px;">(Gợi ý máy tính: ${item.rightAns})</p>
+            `;
+            zone.appendChild(div);
+        });
+    }
+
+    function setReviewStatus(questionText, status) {
+        const item = appData[currentStudent].logs.find(l => l.q === questionText);
+        if(item) {
+            item.status = status;
+            if(status === 'correct') appData[currentStudent].score = Math.min(appData[currentStudent].score + 10, 100);
+            saveData(); updateUI(); renderReviewZone();
+        }
+    }
+
+    function gradeStudent() {
+        alert(`🎉 Đã lưu kết quả chữa bài! Tiến độ hiện tại của con đạt: ${appData[currentStudent].score} Điểm.`);
+        switchTab('game');
+    }
+
+    function resetAllData() {
+        if(confirm("Bố mẹ có chắc chắn muốn xóa lịch sử điểm để các con làm lại ngày mới?")) {
+            appData = { ut: { score: 0, logs: [] }, giua: { score: 0, logs: [] }, lon: { score: 0, logs: [] } };
+            saveData(); updateUI(); renderQuestion();
+        }
+    }
+
+    window.onload = function() { selectStudent('ut'); };
+</script>
+</body>
+</html>

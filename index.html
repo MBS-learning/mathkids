@@ -83,7 +83,6 @@
     </header>
 
     <div class="student-selector" id="student-render-row"></div>
-
     <div class="level-row" id="level-render-row"></div>
 
     <div class="main-grid">
@@ -153,7 +152,6 @@
     let isTimeOver = false;
     let timeSpentSeconds = 0;
 
-    // Cơ chế nạp dữ liệu an toàn - Tránh xung đột xóa mất lịch sử cũ
     let appTracking = JSON.parse(localStorage.getItem('mathKidsV6Data')) || {};
 
     function saveTracking() {
@@ -161,10 +159,10 @@
     }
 
     function speakText(text) {
-        if (currentStudent !== 'Clara') return; // Âm thanh chỉ tự động kích hoạt cho Clara
+        if (currentStudent !== 'Clara') return;
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
-            let cleanText = text.replace(/<\/?[^>]+(>|$)/g, ""); // Khử thẻ HTML hình ảnh
+            let cleanText = text.replace(/<\/?[^>]+(>|$)/g, "");
             cleanText = cleanText.replace(/[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDC00-\uDFFF]/g, '');
             const utterance = new SpeechSynthesisUtterance(cleanText);
             utterance.lang = 'vi-VN';
@@ -179,38 +177,16 @@
         }
     }
 
-    // TỰ ĐỘNG KHỞI TẠO DANH SÁCH CÁC BÉ TỪ FILE QUESTIONS.JS
-    function initSystem() {
-        const students = Object.keys(window.questionsData || {});
-        if(students.length === 0) return;
-        
-        const row = document.getElementById('student-render-row');
-        row.innerHTML = '';
-        
-        students.forEach((name, idx) => {
-            const div = document.createElement('div');
-            div.className = `student-card ${idx===0?'active':''}`;
-            div.id = `std-${name}`;
-            div.onclick = () => selectStudent(name);
-            
-            let extraText = name === 'Clara' ? 'Đọc tự động 🔊' : 'Luyện tư duy 🧠';
-            div.innerHTML = `<h3>${name}</h3><p style="font-size:11px; color:#718096; margin-top:4px;">${extraText}</p>`;
-            row.appendChild(div);
-        });
-
-        selectStudent(students[0]);
-    }
-
     function selectStudent(studentName) {
         currentStudent = studentName;
         document.querySelectorAll('.student-card').forEach(c => c.classList.remove('active'));
-        document.getElementById(`std-${studentName}`).classList.add('active');
+        const activeCard = document.getElementById(`std-${studentName}`);
+        if(activeCard) activeCard.classList.add('active');
 
-        // Tự động quét cấp độ (Toán A, Toán B...) của bé được chọn
-        const levels = Object.keys(window.questionsData[studentName]);
-        
+        const levels = Object.keys(window.questionsData[studentName] || {});
         const lvlRow = document.getElementById('level-render-row');
         lvlRow.innerHTML = '';
+        
         levels.forEach((lvl, idx) => {
             const btn = document.createElement('button');
             btn.className = `level-btn ${idx===0?'active':''}`;
@@ -220,9 +196,7 @@
             lvlRow.appendChild(btn);
         });
 
-        // Thiết lập bộ nhớ tracking an toàn
         if (!appTracking[currentStudent]) appTracking[currentStudent] = {};
-
         selectLevel(levels[0]);
     }
 
@@ -236,7 +210,6 @@
         currentTopic = topics[0] || '';
         currentQuestionIndex = 0;
 
-        // Khởi tạo cấu trúc dữ liệu con nếu chưa có (Tuyệt đối không reset mảng cũ)
         topics.forEach(t => {
             if (!appTracking[currentStudent][currentLevel]) appTracking[currentStudent][currentLevel] = {};
             if (!appTracking[currentStudent][currentLevel][t]) {
@@ -258,13 +231,9 @@
         
         topics.forEach(topicName => {
             const dataNode = appTracking[currentStudent][currentLevel][topicName] || { isCompleted100: false };
-            
-            let badgeHtml = '';
-            if (dataNode.isCompleted100) {
-                badgeHtml = '<span class="status-badge badge-100">⭐ Đạt 100%</span>';
-            } else {
-                badgeHtml = '<span class="status-badge badge-unsolved">❌ Chưa giải quyết</span>';
-            }
+            let badgeHtml = dataNode.isCompleted100 ? 
+                '<span class="status-badge badge-100">⭐ Đạt 100%</span>' : 
+                '<span class="status-badge badge-unsolved">❌ Chưa giải quyết</span>';
 
             const div = document.createElement('div');
             div.className = `topic-item ${topicName === currentTopic ? 'active' : ''}`;
@@ -282,7 +251,7 @@
     }
 
     function updateReviewBadgeCount() {
-        if(!currentTopic) return;
+        if(!currentTopic || !appTracking[currentStudent] || !appTracking[currentStudent][currentLevel] || !appTracking[currentStudent][currentLevel][currentTopic]) return;
         const node = appTracking[currentStudent][currentLevel][currentTopic];
         const badge = document.getElementById('review-count-badge');
         if (node && node.wrongPool && node.wrongPool.length > 0) {
@@ -307,14 +276,16 @@
 
         if(!currentTopic) {
             document.getElementById('game-question').innerText = "Chưa có dữ liệu bài tập cho phân hệ chữ cái này.";
+            document.getElementById('theory-content-box').innerHTML = "Chưa có dữ liệu lý thuyết.";
             return;
         }
 
         if (modeId === 'theory') {
             document.getElementById('theory-title-node').innerText = `📄 Gợi ý lý thuyết tư duy: ${currentTopic}`;
-            document.getElementById('theory-content-box').innerHTML = window.questionsData[currentStudent][currentLevel][currentTopic].theory || "Không có tóm tắt lý thuyết.";
+            const theoryContent = window.questionsData[currentStudent][currentLevel][currentTopic].theory || "Không có tóm tắt lý thuyết.";
+            document.getElementById('theory-content-box').innerHTML = theoryContent;
             if(currentStudent === 'Clara') {
-                setTimeout(() => speakText(window.questionsData[currentStudent][currentLevel][currentTopic].theory), 400);
+                setTimeout(() => speakText(theoryContent), 400);
             }
         } else if (modeId === 'practice') {
             renderQuestion();
@@ -348,7 +319,6 @@
                 
                 if (timeLeft <= 0) {
                     if (currentStudent === 'Clara') {
-                        // Clara hết giờ: Máy tự động chuyển câu hỏi
                         clearInterval(timerInterval);
                         document.getElementById('game-feedback').innerText = '⏰ Hết giờ rồi Clara ơi! Chúng mình làm câu tiếp theo nhé.';
                         document.getElementById('game-feedback').style.color = 'var(--danger)';
@@ -356,7 +326,6 @@
                         processAnswerResult(null, false, 30);
                         setTimeout(loadNextQuestion, 2500);
                     } else {
-                        // Các anh lớn hết giờ: Kích hoạt chế độ bù giờ, thanh thời gian đổi sang màu xám
                         isTimeOver = true;
                         bar.style.width = '100%';
                         bar.style.background = '#A0AEC0';
@@ -560,6 +529,35 @@
             saveTracking();
             selectLevel(currentLevel);
         }
+    }
+
+    // HÀM KHỞI TẠO ĐỒNG BỘ ĐƯỢC CHUYỂN XUỐNG DƯỚI CÙNG ĐỂ ĐẢM BẢO KHÔNG LỖI ĐÈ BIẾN
+    function initSystem() {
+        const students = Object.keys(window.questionsData || {});
+        if(students.length === 0) return;
+        
+        // Kiểm tra dọn dẹp cache cũ nếu xung đột cấu trúc lớp học cũ
+        if (appTracking["Cris"] && (appTracking["Cris"]["Toán lớp 3"] || appTracking["Cris"]["Toán lớp 4"])) {
+            appTracking = {};
+            localStorage.removeItem('mathKidsV6Data');
+        }
+
+        const row = document.getElementById('student-render-row');
+        row.innerHTML = '';
+        
+        students.forEach((name) => {
+            const div = document.createElement('div');
+            div.className = 'student-card';
+            div.id = `std-${name}`;
+            div.onclick = () => selectStudent(name);
+            
+            let extraText = name === 'Clara' ? 'Đọc tự động 🔊' : 'Luyện tư duy 🧠';
+            div.innerHTML = `<h3>${name}</h3><p style="font-size:11px; color:#718096; margin-top:4px;">${extraText}</p>`;
+            row.appendChild(div);
+        });
+
+        // Kích hoạt luồng chạy tự động cho bé đầu tiên
+        selectStudent(students[0]);
     }
 
     window.onload = function() { initSystem(); };

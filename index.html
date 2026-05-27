@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MathKids Cloud Enterprise</title>
+    <title>MathKids Enterprise Cloud</title>
     <style>
         :root {
             --primary: #4A90E2;
@@ -21,108 +21,106 @@
         header h1 { color: var(--primary); }
         
         .student-selector { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; }
-        .student-card { background: white; padding: 15px 20px; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-width: 220px; }
+        .student-card { background: white; padding: 15px 20px; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-width: 240px; }
         .student-card.active { border-color: var(--primary); transform: translateY(-5px); background: #EDF5FF; }
         
-        .main-grid { display: grid; grid-template-columns: 1.22fr 2fr; gap: 20px; }
+        .main-grid { display: grid; grid-template-columns: 1.25fr 2fr; gap: 20px; }
         @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
         
         .card { background: white; padding: 22px; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .card h2 { margin-bottom: 15px; border-bottom: 2px solid #F0F2F5; padding-bottom: 10px; font-size: 18px; }
+        .card h2 { margin-bottom: 15px; border-bottom: 2px solid #F0F2F5; padding-bottom: 10px; font-size: 17px; }
         
-        /* Topic Selector Menu */
-        .topic-item { padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #E2E8F0; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; }
+        /* Menu */
+        .topic-item { padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #E2E8F0; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; }
         .topic-item:hover { background: #F8FAFC; }
         .topic-item.active { background: var(--primary); color: white; border-color: var(--primary); }
         
-        /* Badges */
-        .status-badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-badge { padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
         .badge-100 { background: #D4EDDA; color: #155724; }
         .badge-pending { background: #FFF3CD; color: #856404; }
         .badge-empty { background: #E2E8F0; color: #4A5568; }
         
-        /* Game Area Components */
-        .timer-container { background: #E0E0E0; height: 8px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
+        /* Timer & Tabs */
+        .timer-container { background: #E0E0E0; height: 10px; border-radius: 5px; margin-bottom: 15px; overflow: hidden; position: relative; }
         .timer-bar { background: var(--danger); height: 100%; width: 100%; transition: width 1s linear; }
+        .timer-text { position: absolute; top:-2px; left:50%; transform:translateX(-50%); font-size:10px; font-weight:bold; color: white; text-shadow: 0 1px 2px black; }
         
         .mode-tabs { display: flex; gap: 8px; margin-bottom: 15px; background: #F1F5F9; padding: 5px; border-radius: 10px; }
-        .mode-btn { flex: 1; padding: 8px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; color: #475569; background: transparent; transition: all 0.2s; }
+        .mode-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; color: #475569; background: transparent; transition: all 0.2s; }
         .mode-btn.active { background: white; color: var(--dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
-        .theory-box { background: #FFF9E6; border-left: 5px solid var(--warning); padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 14px; text-align: left; line-height: 1.6; color: #795548; font-weight: 500; }
+        .theory-box { background: #FFF9E6; border-left: 5px solid var(--warning); padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 14px; text-align: left; line-height: 1.6; color: #795548; font-weight: 500; white-space: pre-line; }
         .game-box { text-align: center; padding: 25px; background: #FAFAFA; border-radius: 12px; border: 2px dashed #CBD5E1; }
-        .question { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: var(--dark); min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .question { font-size: 19px; font-weight: bold; margin-bottom: 20px; color: var(--dark); min-height: 65px; display: flex; align-items: center; justify-content: center; }
         
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .option-btn { padding: 14px; font-size: 16px; border: 2px solid #E2E8F0; border-radius: 10px; background: white; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+        .option-btn { padding: 14px; font-size: 15px; border: 2px solid #E2E8F0; border-radius: 10px; background: white; cursor: pointer; font-weight: bold; transition: all 0.2s; }
         .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #F4F9FF; }
-        .option-btn.selected { background: #FFEAA7; border-color: var(--warning); }
         
-        .audio-btn { background: var(--purple); color: white; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+        .audio-btn { background: var(--purple); color: white; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 15px; display: inline-block; }
         .btn-action { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; font-size: 15px; }
         
-        /* Revision items */
         .review-card { background: white; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: left; }
-        .badge-wrong-history { font-size: 11px; background: #FFF5F5; color: #C53030; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 5px; border: 1px solid #FEB2B2; }
+        .time-over-flag { font-size: 11px; color: var(--danger); background: #FFF5F5; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: inline-block; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>MathKids Enterprise Hub 🚀</h1>
-        <p>Phân rã Dạng bài • Báo cáo Đạt 100% (Mục tiêu Đúng từ lần đầu) • Sổ tay Ôn luyện</p>
+        <h1>MathKids Multi-Level Hub 🚀</h1>
+        <p>Hệ thống hỗ trợ Giọng nói Tự động cho Clara và Chế độ Bù giờ tính điểm cho Anh lớn</p>
     </header>
 
-    <!-- CHỌN CON HỌC -->
     <div class="student-selector">
         <div class="student-card active" onclick="selectStudent('ut')" id="card-ut">
             <h3>Clara 👶 (2022)</h3>
+            <p style="font-size:11px; color:#718096; margin-top:4px;">Nhận biết • Đọc tự động 🔊</p>
         </div>
         <div class="student-card" onclick="selectStudent('giua')" id="card-giua">
             <h3>Cris 👦 (2018)</h3>
+            <p style="font-size:11px; color:#718096; margin-top:4px;">Toán Lớp 2 & Lớp 3 📚</p>
         </div>
         <div class="student-card" onclick="selectStudent('lon')" id="card-lon">
             <h3>Simon 👧 (2017)</h3>
+            <p style="font-size:11px; color:#718096; margin-top:4px;">Toán Lớp 3 & Lớp 4 🎓</p>
         </div>
     </div>
 
     <div class="main-grid">
-        <!-- CỘT TRÁI: DANH SÁCH DẠNG BÀI & TRẠNG THÁI 100% -->
         <div>
             <div class="card">
-                <h2>📚 Danh Sách Dạng Bài</h2>
-                <p style="font-size:11px; color:#718096; margin-bottom:12px;">🌟 Đạt 100% nghĩa là con làm đúng ngay từ lần đầu tiên bấm máy.</p>
+                <h2>📁 Danh Mục Chuyên Đề</h2>
+                <p style="font-size:11px; color:#718096; margin-bottom:12px;">⭐ Đạt 100% khi tất cả câu hỏi được giải chính xác ngay trong lần bấm đầu tiên và trong thời gian quy định.</p>
                 <div id="topic-list-menu"></div>
-                <button class="btn-action" onclick="resetAllData()" style="background:var(--danger); font-size:11px; padding:6px; margin-top:15px;">Xóa sạch bộ nhớ làm lại từ đầu</button>
+                <button class="btn-action" onclick="resetAllData()" style="background:var(--danger); font-size:11px; padding:6px; margin-top:15px;">Xóa sạch tiến độ để học lại</button>
             </div>
         </div>
 
-        <!-- CỘT PHẢI: KHU VỰC ĐIỀU HƯỚNG TỪNG PHÂN HỆ -->
         <div>
-            <!-- THANH CHUYỂN CHẾ ĐỘ HỌC TẬP -->
             <div class="mode-tabs">
-                <button id="m-btn-theory" class="mode-btn" onclick="switchMode('theory')">📄 1. Lý Thuyết Xem Trước</button>
-                <button id="m-btn-practice" class="mode-btn active" onclick="switchMode('practice')">🎮 2. Kiểm Tra Dạng Bài</button>
+                <button id="m-btn-theory" class="mode-btn" onclick="switchMode('theory')">📄 1. Xem Lý Thuyết Trước</button>
+                <button id="m-btn-practice" class="mode-btn active" onclick="switchMode('practice')">🎮 2. Vào Làm Bài Tập</button>
                 <button id="m-btn-review" class="mode-btn" onclick="switchMode('review')" style="position:relative;">
-                    🔄 3. Ôn Luyện Lỗi Sai 
+                    🔄 3. Kho Ôn Tập Lỗi Sai 
                     <span id="review-count-badge" style="position:absolute; top:-5px; right:-2px; background:var(--danger); color:white; font-size:10px; padding:2px 6px; border-radius:10px; display:none;">0</span>
                 </button>
             </div>
 
-            <!-- PHÂN HỆ LÝ THUYẾT -->
             <div id="pane-theory" class="card" style="display:none;">
-                <h2 id="theory-title-node">Sơ đồ lý thuyết bài học</h2>
+                <h2 id="theory-title-node">Nội dung bài học</h2>
                 <div class="theory-box" id="theory-content-box">Đang tải lý thuyết...</div>
-                <button class="btn-action" onclick="switchMode('practice')">Học xong lý thuyết, Tiến hành làm bài luôn 🚀</button>
+                <button class="btn-action" onclick="switchMode('practice')">Con đã hiểu bài, Tiến hành làm toán 🚀</button>
             </div>
 
-            <!-- PHÂN HỆ LÀM BÀI -->
             <div id="pane-practice" class="card">
-                <div class="timer-container"><div class="timer-bar" id="t-bar"></div></div>
+                <div class="timer-container">
+                    <div class="timer-bar" id="t-bar"></div>
+                    <div class="timer-text" id="t-text">30 giây</div>
+                </div>
                 <div class="game-box">
-                    <p style="font-size: 13px; color:#666; margin-bottom: 5px;">Học sinh: <strong id="student-display-name">Clara</strong> | <span id="current-topic-name-display" style="font-weight:600; color:var(--primary);">Dạng bài</span></p>
-                    <button class="audio-btn" onclick="speakCurrentQuestion()">🔊 Nghe đọc đề bài</button>
+                    <p style="font-size: 13px; color:#666; margin-bottom: 5px;">Thành viên đang học: <strong id="student-display-name">Clara</strong> | <span id="current-topic-name-display" style="font-weight:600; color:var(--primary);">Dạng bài</span></p>
+                    <button class="audio-btn" id="audio-speak-btn" onclick="speakCurrentQuestion()">🔊 Nghe đọc đề bài</button>
                     <div class="question" id="game-question">Đang tải câu hỏi...</div>
                     <div class="options-grid" id="game-options"></div>
                     <p id="game-feedback" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
@@ -130,10 +128,9 @@
                 </div>
             </div>
 
-            <!-- PHÂN HỆ ÔN LUYỆN LỖI SAI RIÊNG BIỆT -->
             <div id="pane-review" class="card" style="display:none;">
-                <h2>🔄 Sổ tay Lỗi Sai & Ôn Luyện Thêm</h2>
-                <p style="font-size:13px; color:#666; margin-bottom:15px;">Tổng hợp những câu hỏi con từng bấm sai lần đầu để luyện tập lại chuyên sâu.</p>
+                <h2>🔄 Kho Ôn Luyện Bổ Trợ (Câu Hỏi Sai)</h2>
+                <p style="font-size:13px; color:#666; margin-bottom:15px;">Tổng hợp những câu hỏi mà con đã chọn sai lần đầu để rèn luyện chuyên sâu lại.</p>
                 <div id="pane-review-list"></div>
             </div>
         </div>
@@ -148,18 +145,19 @@
     let currentQuestionIndex = 0;
     let currentQuestionData = {};
     let currentWrongAttempts = [];
-    let currentMode = 'practice'; // theory, practice, review
+    let currentMode = 'practice';
+    
     let timerInterval = null;
     let timeLeft = 30;
     const maxTime = 30;
+    let isTimeOver = false; // Cờ theo dõi xem câu hiện tại đã bị quá giờ chưa
+    let timeSpentSeconds = 0; // Biến tính tổng thời gian làm bài của câu đó
 
-    // Cấu trúc lưu trữ nâng cấp chuyên sâu
-    // tracking[student][topic] = { isCompleted100: true/false, attempts: { qId: { isFirstRight: true/false, isDone: true/false } }, wrongPool: [] }
     let defaultTracking = { ut: {}, giua: {}, lon: {} };
-    let appTracking = JSON.parse(localStorage.getItem('mathKidsEnterpriseTrack_v4')) || defaultTracking;
+    let appTracking = JSON.parse(localStorage.getItem('mathKidsV5Data')) || defaultTracking;
 
     function saveTracking() {
-        localStorage.setItem('mathKidsEnterpriseTrack_v4', JSON.stringify(appTracking));
+        localStorage.setItem('mathKidsV5Data', JSON.stringify(appTracking));
     }
 
     function speakText(text) {
@@ -181,8 +179,6 @@
 
     function selectStudent(studentId) {
         currentStudent = studentId;
-        
-        // Lấy dạng bài đầu tiên của bé làm mặc định
         const topics = Object.keys(QUESTION_BANK[studentId]);
         currentTopic = topics[0] || '';
         currentQuestionIndex = 0;
@@ -193,7 +189,9 @@
         const nameMap = { ut: 'Clara', giua: 'Cris', lon: 'Simon' };
         document.getElementById('student-display-name').innerText = nameMap[studentId];
         
-        // Khởi tạo bộ nhớ theo dõi cho dạng bài nếu chưa có
+        // Hiện/Ẩn nút loa tùy thuộc vào đối tượng học (Chỉ bắt buộc hiển thị với Clara)
+        document.getElementById('audio-speak-btn').style.display = (studentId === 'ut') ? 'inline-block' : 'none';
+
         if (!appTracking[currentStudent]) appTracking[currentStudent] = {};
         topics.forEach(t => {
             if (!appTracking[currentStudent][t]) {
@@ -217,7 +215,7 @@
             if (dataNode.isCompleted100) {
                 badgeHtml = '<span class="status-badge badge-100">Đạt 100% ⭐</span>';
             } else if (Object.keys(dataNode.attempts || {}).length > 0) {
-                badgeHtml = '<span class="status-badge badge-pending">Cần cải thiện</span>';
+                badgeHtml = '<span class="status-badge badge-pending">Đang luyện</span>';
             }
 
             const div = document.createElement('div');
@@ -232,7 +230,6 @@
             menu.appendChild(div);
         });
         
-        // Cập nhật số lượng câu sai đang nằm trong bể ôn tập
         updateReviewBadgeCount();
     }
 
@@ -260,10 +257,10 @@
         window.speechSynthesis.cancel();
 
         if (modeId === 'theory') {
-            document.getElementById('theory-title-node').innerText = `📄 Lý Thuyết: ${currentTopic}`;
+            document.getElementById('theory-title-node').innerText = `📄 Lý Thuyết Chuyên Đề: ${currentTopic}`;
             document.getElementById('theory-content-box').innerText = QUESTION_BANK[currentStudent][currentTopic].theory;
             if(currentStudent === 'ut') {
-                setTimeout(() => speakText(QUESTION_BANK[currentStudent][currentTopic].theory), 500);
+                setTimeout(() => speakText(QUESTION_BANK[currentStudent][currentTopic].theory), 400);
             }
         } else if (modeId === 'practice') {
             renderQuestion();
@@ -275,23 +272,44 @@
     function startTimer() {
         clearInterval(timerInterval);
         timeLeft = maxTime;
+        timeSpentSeconds = 0;
+        isTimeOver = false;
+        
         const bar = document.getElementById('t-bar');
-        if(bar) bar.style.width = '100%';
+        const text = document.getElementById('t-text');
+        bar.style.width = '100%';
+        bar.style.background = 'var(--danger)';
+        text.innerText = `30 giây`;
         
         timerInterval = setInterval(() => {
-            timeLeft--;
-            if(bar) bar.style.width = `${(timeLeft / maxTime) * 100}%`;
+            timeSpentSeconds++;
             
-            if(timeLeft <= 0) {
-                clearInterval(timerInterval);
-                document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-                const feedback = document.getElementById('game-feedback');
+            if (!isTimeOver) {
+                timeLeft--;
+                bar.style.width = `${(timeLeft / maxTime) * 100}%`;
+                text.innerText = `${timeLeft} giây`;
                 
-                feedback.innerText = '⏰ Hết giờ mất rồi! Hệ thống đã ghi nhận lỗi để ôn luyện lại.';
-                feedback.style.color = 'var(--danger)';
-                if(currentStudent === 'ut') speakText('Hết giờ mất rồi!');
-                
-                processAnswerResult(null, false); // Đánh dấu là sai
+                if (timeLeft <= 0) {
+                    if (currentStudent === 'ut') {
+                        // Clara hết giờ: Không tính điểm, tự động chuyển câu hỏi
+                        clearInterval(timerInterval);
+                        document.getElementById('game-feedback').innerText = '⏰ Hết giờ rồi Clara ơi! Chúng mình chuyển câu nhé.';
+                        document.getElementById('game-feedback').style.color = 'var(--danger)';
+                        speakText('Hết giờ rồi Clara ơi!');
+                        processAnswerResult(null, false, 30);
+                        setTimeout(loadNextQuestion, 3000);
+                    } else {
+                        // Cris và Simon hết giờ: Kích hoạt trạng thái CHẾ ĐỘ BÙ GIỜ
+                        isTimeOver = true;
+                        bar.style.width = '100%';
+                        bar.style.background = '#95a5a6'; // Chuyển thanh thời gian sang màu xám
+                        document.getElementById('game-feedback').innerText = '⚠️ Quá thời gian quy định! Con vẫn được điền đáp án nhưng điểm sẽ bị trừ 10%.';
+                        document.getElementById('game-feedback').style.color = 'var(--warning)';
+                    }
+                }
+            } else {
+                // Đếm giây tăng dần trong chế độ bù giờ để lưu mốc thời gian hoàn thành
+                text.innerText = `Bù giờ: +${timeSpentSeconds - maxTime}s`;
             }
         }, 1000);
     }
@@ -307,9 +325,9 @@
 
         const qList = QUESTION_BANK[currentStudent][currentTopic].questions;
         if(currentQuestionIndex >= qList.length) {
-            // Đã làm hết lượt câu hỏi của dạng bài này, tiến hành kiểm tra xem đạt 100% chưa
             checkTopicCompletionStatus();
-            document.getElementById('game-question').innerText = "🎉 Chúc mừng con đã hoàn thành xong gói câu hỏi của dạng bài này!";
+            document.getElementById('game-question').innerText = "🎉 Con đã xuất sắc hoàn thành tất cả bài tập của chuyên đề này!";
+            clearInterval(timerInterval);
             return;
         }
 
@@ -326,7 +344,7 @@
 
         startTimer();
         if(currentStudent === 'ut') {
-            setTimeout(speakCurrentQuestion, 400);
+            setTimeout(speakCurrentQuestion, 400); // Tự động đọc bài cho Clara không cần click
         }
     }
 
@@ -336,59 +354,72 @@
 
         if(isCorrect) {
             clearInterval(timerInterval);
-            window.speechSynthesis.cancel();
             
-            feedback.innerText = '🎉 Đúng rồi! Con giỏi quá, mười điểm!'; feedback.style.color = 'var(--success)';
-            if(currentStudent === 'ut') speakText('Đúng rồi! Con giỏi quá, mười điểm!');
+            let finalScore = 10;
+            let logMsg = '🎉 Chính xác! Bạn được cộng 10 điểm.';
             
-            processAnswerResult(selectedOpt, true);
+            if (isTimeOver && currentStudent !== 'ut') {
+                finalScore = 9; // Trừ 10% điểm số (10đ -> 9đ) do làm quá thời gian
+                logMsg = `✔️ Đúng nhưng bị quá giờ! Thời gian làm bài: ${timeSpentSeconds} giây (Trừ 10% điểm còn 9 điểm).`;
+                feedback.style.color = 'var(--purple)';
+            } else {
+                feedback.style.color = 'var(--success)';
+            }
+
+            feedback.innerText = logMsg;
+            if(currentStudent === 'ut') speakText('Đúng rồi! Clara xuất sắc.');
+
+            processAnswerResult(selectedOpt, true, timeSpentSeconds, finalScore);
+            document.getElementById('btn-next-question').style.display = 'inline-block';
+            
+            // Khóa toàn bộ nút bấm sau khi chọn đúng
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
         } else {
             if(!currentWrongAttempts.includes(selectedOpt)) currentWrongAttempts.push(selectedOpt);
             btnElement.disabled = true;
             btnElement.style.background = '#F8D7DA';
             btnElement.style.borderColor = 'var(--danger)';
             
-            feedback.innerText = '❌ Chưa đúng rồi! Con thử suy nghĩ lại hoặc chọn nút khác xem nhé.';
+            feedback.innerText = '❌ Đáp án chưa đúng rồi! Hãy suy nghĩ kỹ lại xem nào.';
             feedback.style.color = 'var(--danger)';
-            if(currentStudent === 'ut') speakText('Chưa đúng rồi! Con thử lại xem.');
+            if(currentStudent === 'ut') speakText('Chưa đúng rồi!');
             
-            // Đánh dấu sai lượt đầu ngay khi chọn nhầm nút
+            // Nếu bấm sai ngay lượt đầu tiên, lập tức ghi nhận lỗi để đẩy vào kho ôn tập
             if(currentWrongAttempts.length === 1) {
-                processAnswerResult(selectedOpt, false);
+                processAnswerResult(selectedOpt, false, timeSpentSeconds, 0);
             }
         }
     }
 
-    function processAnswerResult(selectedOpt, isCorrectFinal) {
+    function processAnswerResult(selectedOpt, isCorrectFinal, secondsSpent, pointsEarned) {
         const node = appTracking[currentStudent][currentTopic];
         const qId = currentQuestionData.id;
 
         if(!node.attempts[qId]) {
-            node.attempts[qId] = { isFirstRight: false, isDone: false };
+            node.attempts[qId] = { isFirstRight: false, isDone: false, timeTaken: 0, penalty: false };
         }
 
-        // Trường hợp 1: Đúng ngay từ phát bấm đầu tiên
-        if(isCorrectFinal && currentWrongAttempts.length === 0) {
+        // Lưu trữ mốc thời gian hoàn thành câu hỏi thực tế vào log máy
+        node.attempts[qId].timeTaken = secondsSpent;
+
+        // Đúng từ lượt đầu tiên và trong thời gian chuẩn
+        if(isCorrectFinal && currentWrongAttempts.length === 0 && !isTimeOver) {
             node.attempts[qId].isFirstRight = true;
             node.attempts[qId].isDone = true;
-            document.getElementById('btn-next-question').style.display = 'inline-block';
-            setTimeout(loadNextQuestion, 2000);
         } 
-        // Trường hợp 2: Bị sai lượt đầu (bấm nhầm hoặc hết giờ) -> Đẩy vào Sổ Tay Lỗi Sai Ôn Luyện
+        // Bị dính quá giờ hoặc bấm sai từ lần đầu -> Đẩy vào kho ôn tập
         else if(!isCorrectFinal && currentWrongAttempts.length === 1) {
             node.attempts[qId].isFirstRight = false;
-            
-            // Tránh đẩy trùng câu hỏi vào kho ôn luyện
+            if(isTimeOver) node.attempts[qId].penalty = true;
+
             if(!node.wrongPool.some(item => item.id === qId)) {
-                node.wrongPool.push({...currentQuestionData});
+                node.wrongPool.push({...currentQuestionData, timeLog: secondsSpent, overTime: isTimeOver});
             }
             saveTracking();
             updateReviewBadgeCount();
-        } 
-        // Trường hợp 3: Bấm sai nhiều lần rồi cuối cùng cũng sửa thành đúng
-        else if(isCorrectFinal && currentWrongAttempts.length > 0) {
+        }
+        else if (isCorrectFinal) {
             node.attempts[qId].isDone = true;
-            setTimeout(loadNextQuestion, 2000);
         }
         
         saveTracking();
@@ -403,11 +434,11 @@
         const node = appTracking[currentStudent][currentTopic];
         const originalQuestions = QUESTION_BANK[currentStudent][currentTopic].questions;
         
-        // Kiểm tra xem tất cả các câu trong cấu trúc dữ liệu gốc có đều đạt isFirstRight == true không
         let perfect100 = true;
         originalQuestions.forEach(q => {
             const attempt = node.attempts[q.id];
-            if(!attempt || !attempt.isFirstRight) {
+            // Đạt 100% khi và chỉ khi: làm đúng lượt đầu tiên VÀ không bị quá giờ
+            if(!attempt || !attempt.isFirstRight || attempt.timeTaken > maxTime) {
                 perfect100 = false;
             }
         });
@@ -417,14 +448,14 @@
         renderTopicMenu();
     }
 
-    // PHÂN HỆ ÔN LUYỆN LỖI SAI (CHUYÊN SÂU BIỆT LẬP)
+    // KHO ÔN TẬP PHÂN HỆ LỖI SAI BIỆT LẬP
     function renderReviewZone() {
         const listEl = document.getElementById('pane-review-list');
         listEl.innerHTML = '';
         
         const node = appTracking[currentStudent][currentTopic];
         if(!node || !node.wrongPool || node.wrongPool.length === 0) {
-            listEl.innerHTML = '<div style="text-align:center; padding:30px; color:var(--success); font-weight:bold;">✨ Tuyệt diệu! Dạng bài này con chưa từng sai hoặc đã dọn sạch lỗi rồi!</div>';
+            listEl.innerHTML = '<div style="text-align:center; padding:30px; color:var(--success); font-weight:bold;">✨ Chúc mừng con! Không có câu hỏi nào bị lỗi sai hay quá giờ ở mục này!</div>';
             return;
         }
 
@@ -437,8 +468,11 @@
                 optionsHtml += `<button class="option-btn" style="padding:8px 15px; font-size:13px; margin:5px;" onclick="solveReviewQuestion('${qItem.id}', '${opt}', this)">${opt}</button>`;
             });
 
+            let timeOverNotice = qItem.overTime ? `<div class="time-over-flag">⏱️ Lần trước làm hết: ${qItem.timeLog} giây (Quá giờ)</div>` : '';
+
             div.innerHTML = `
                 <p><strong>Câu hỏi ôn tập ${index + 1}:</strong> ${qItem.question}</p>
+                ${timeOverNotice}
                 <div style="margin-top:10px;">${optionsHtml}</div>
                 <div id="rev-feedback-${qItem.id}" style="font-weight:bold; font-size:12px; margin-top:5px;"></div>
             `;
@@ -452,19 +486,19 @@
         const fb = document.getElementById(`rev-feedback-${qId}`);
 
         if (selectedOpt === qItem.answer) {
-            fb.innerText = "🎯 Xuất sắc! Lần này con đã làm hoàn toàn chính xác rồi.";
+            fb.innerText = "🎯 Quá tốt! Lần này con đã tính toán chính xác rồi.";
             fb.style.color = "var(--success)";
             if(currentStudent === 'ut') speakText('Đúng rồi!');
             
-            // Xóa câu hỏi này ra khỏi Hộp Ôn Luyện khi con làm lại đúng thành công
+            // Xóa khỏi danh sách ôn tập khi con tự sửa lại thành công
             node.wrongPool = node.wrongPool.filter(item => item.id !== qId);
             saveTracking();
             setTimeout(() => {
                 renderReviewZone();
                 renderTopicMenu();
-            }, 1500);
+            }, 1200);
         } else {
-            fb.innerText = "❌ Vẫn chưa đúng rồi, con xem kỹ lý thuyết và thử lại xem.";
+            fb.innerText = "❌ Vẫn chưa đúng, con nhớ kiểm tra kỹ lại phần tóm tắt lý thuyết nhé.";
             fb.style.color = "var(--danger)";
             if(currentStudent === 'ut') speakText('Thử lại xem.');
             btnNode.style.background = "#F8D7DA";
@@ -472,7 +506,7 @@
     }
 
     function resetAllData() {
-        if(confirm("Bạn có chắc chắn muốn xóa toàn bộ lịch sử đạt 100% và hộp ôn luyện để các con reset lại ngày học mới không?")) {
+        if(confirm("Bạn có chắc chắn muốn xóa lịch sử học tập để reset một ngày học mới cho các bé?")) {
             appTracking = { ut: {}, giua: {}, lon: {} };
             saveTracking();
             selectStudent('ut');

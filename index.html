@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MathKids Cloud System</title>
+    <title>MathKids Cloud Enterprise</title>
     <style>
         :root {
             --primary: #4A90E2;
@@ -12,139 +12,129 @@
             --danger: #E74C3C;
             --dark: #2C3E50;
             --light: #F8F9FA;
+            --purple: #9b59b6;
         }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: #EBF2FA; color: var(--dark); padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1300px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 25px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         header h1 { color: var(--primary); }
         
-        /* Student Selector */
-        .student-selector { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
+        .student-selector { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; }
         .student-card { background: white; padding: 15px 20px; border-radius: 12px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-width: 220px; }
         .student-card.active { border-color: var(--primary); transform: translateY(-5px); background: #EDF5FF; }
         
-        /* Layout Grid */
-        .main-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        .main-grid { display: grid; grid-template-columns: 1.22fr 2fr; gap: 20px; }
         @media (max-width: 768px) { .main-grid { grid-template-columns: 1fr; } }
         
         .card { background: white; padding: 22px; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .card h2 { margin-bottom: 15px; border-bottom: 2px solid #F0F2F5; padding-bottom: 10px; }
+        .card h2 { margin-bottom: 15px; border-bottom: 2px solid #F0F2F5; padding-bottom: 10px; font-size: 18px; }
         
-        /* Progress Tracker */
-        .progress-group { margin-bottom: 15px; }
-        .progress-bar-bg { background: #E0E0E0; height: 12px; border-radius: 10px; overflow: hidden; margin-top: 5px; }
-        .progress-bar { height: 100%; background: var(--success); width: 0%; transition: width 0.5s ease; }
+        /* Topic Selector Menu */
+        .topic-item { padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #E2E8F0; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; }
+        .topic-item:hover { background: #F8FAFC; }
+        .topic-item.active { background: var(--primary); color: white; border-color: var(--primary); }
         
-        /* Timer & Tabs */
+        /* Badges */
+        .status-badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .badge-100 { background: #D4EDDA; color: #155724; }
+        .badge-pending { background: #FFF3CD; color: #856404; }
+        .badge-empty { background: #E2E8F0; color: #4A5568; }
+        
+        /* Game Area Components */
         .timer-container { background: #E0E0E0; height: 8px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
         .timer-bar { background: var(--danger); height: 100%; width: 100%; transition: width 1s linear; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tab-btn { padding: 10px 15px; background: #D0DBE5; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .tab-btn.active { background: var(--primary); color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
         
-        /* Theory Box */
-        .theory-box { background: #FFF9E6; border-left: 5px solid var(--warning); padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; text-align: left; white-space: pre-line; line-height: 1.5; color: #795548; font-weight: 500; }
+        .mode-tabs { display: flex; gap: 8px; margin-bottom: 15px; background: #F1F5F9; padding: 5px; border-radius: 10px; }
+        .mode-btn { flex: 1; padding: 8px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; color: #475569; background: transparent; transition: all 0.2s; }
+        .mode-btn.active { background: white; color: var(--dark); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
-        /* Game Area */
-        .game-box { text-align: center; padding: 20px; background: #F9FAFB; border-radius: 12px; border: 2px dashed #CBD5E1; }
-        .question { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: var(--primary); min-height: 50px; display: flex; align-items: center; justify-content: center; }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .option-btn { padding: 12px; font-size: 16px; border: 2px solid #CBD5E1; border-radius: 8px; background: white; cursor: pointer; font-weight: bold; }
+        .theory-box { background: #FFF9E6; border-left: 5px solid var(--warning); padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 14px; text-align: left; line-height: 1.6; color: #795548; font-weight: 500; }
+        .game-box { text-align: center; padding: 25px; background: #FAFAFA; border-radius: 12px; border: 2px dashed #CBD5E1; }
+        .question { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: var(--dark); min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .option-btn { padding: 14px; font-size: 16px; border: 2px solid #E2E8F0; border-radius: 10px; background: white; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #F4F9FF; }
         .option-btn.selected { background: #FFEAA7; border-color: var(--warning); }
         
-        /* Logs */
-        .history-list { max-height: 250px; overflow-y: auto; margin-top: 10px; }
-        .history-item { padding: 8px; border-bottom: 1px solid #EEE; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-        .status-badge { padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
-        .status-saved { background: #E2E8F0; color: #4A5568; }
-        .status-correct { background: #D4EDDA; color: #155724; }
-        .status-wrong { background: #F8D7DA; color: #721C24; }
+        .audio-btn { background: var(--purple); color: white; border: none; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; font-size: 15px; }
         
-        .btn-action { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
-        .badge { display: inline-block; padding: 3px 8px; background: #E1F5FE; color: #0288D1; border-radius: 5px; font-size: 11px; font-weight: bold; margin-top: 5px; }
+        /* Revision items */
+        .review-card { background: white; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: left; }
+        .badge-wrong-history { font-size: 11px; background: #FFF5F5; color: #C53030; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 5px; border: 1px solid #FEB2B2; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>MathKids Cloud Dashboard 🚀</h1>
-        <p>Hệ thống học tập cá nhân hóa chạy trực tuyến trên GitHub Pages</p>
+        <h1>MathKids Enterprise Hub 🚀</h1>
+        <p>Phân rã Dạng bài • Báo cáo Đạt 100% (Mục tiêu Đúng từ lần đầu) • Sổ tay Ôn luyện</p>
     </header>
 
+    <!-- CHỌN CON HỌC -->
     <div class="student-selector">
         <div class="student-card active" onclick="selectStudent('ut')" id="card-ut">
             <h3>Clara 👶 (2022)</h3>
-            <span class="badge">Báo kết quả ngay</span>
         </div>
         <div class="student-card" onclick="selectStudent('giua')" id="card-giua">
             <h3>Cris 👦 (2018)</h3>
-            <span class="badge" style="background:#FFF3CD; color:#856404;">Chữa bài cuối ngày</span>
         </div>
         <div class="student-card" onclick="selectStudent('lon')" id="card-lon">
-            <h3>Simon 2017 👧</h3>
-            <span class="badge" style="background:#FFF3CD; color:#856404;">Chữa bài cuối ngày</span>
+            <h3>Simon 👧 (2017)</h3>
         </div>
     </div>
 
     <div class="main-grid">
+        <!-- CỘT TRÁI: DANH SÁCH DẠNG BÀI & TRẠNG THÁI 100% -->
         <div>
             <div class="card">
-                <h2>Tiến Độ Hôm Nay</h2>
-                <div class="progress-group">
-                    <div style="display: flex; justify-content: space-between;"><strong>Clara:</strong> <span id="score-ut">0 Điểm</span></div>
-                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-ut"></div></div>
-                </div>
-                <div class="progress-group">
-                    <div style="display: flex; justify-content: space-between;"><strong>Cris:</strong> <span id="score-giua">0 Điểm</span></div>
-                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-giua"></div></div>
-                </div>
-                <div class="progress-group">
-                    <div style="display: flex; justify-content: space-between;"><strong>Simon:</strong> <span id="score-lon">0 Điểm</span></div>
-                    <div class="progress-bar-bg"><div class="progress-bar" id="bar-lon"></div></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Nhật Ký Làm Bài</h2>
-                <div id="history-title" style="font-weight: bold; color: var(--primary); margin-bottom: 5px;">Clara:</div>
-                <div class="history-list" id="log-list"></div>
-                <button class="btn-action" onclick="resetAllData()" style="background:var(--danger); font-size:11px; padding:5px;">Xóa sạch tiến độ</button>
+                <h2>📚 Danh Sách Dạng Bài</h2>
+                <p style="font-size:11px; color:#718096; margin-bottom:12px;">🌟 Đạt 100% nghĩa là con làm đúng ngay từ lần đầu tiên bấm máy.</p>
+                <div id="topic-list-menu"></div>
+                <button class="btn-action" onclick="resetAllData()" style="background:var(--danger); font-size:11px; padding:6px; margin-top:15px;">Xóa sạch bộ nhớ làm lại từ đầu</button>
             </div>
         </div>
 
+        <!-- CỘT PHẢI: KHU VỰC ĐIỀU HƯỚNG TỪNG PHÂN HỆ -->
         <div>
-            <div class="card">
-                <div class="tabs">
-                    <button id="game-tab-btn" class="tab-btn active" onclick="switchTab('game')">🎮 Khu Vực Học Tập</button>
-                    <button id="review-tab-btn" class="tab-btn" onclick="switchTab('review')" style="background: #FFEAA7; display:none;">🔍 Góc Cha Mẹ Chữa Bài</button>
-                </div>
+            <!-- THANH CHUYỂN CHẾ ĐỘ HỌC TẬP -->
+            <div class="mode-tabs">
+                <button id="m-btn-theory" class="mode-btn" onclick="switchMode('theory')">📄 1. Lý Thuyết Xem Trước</button>
+                <button id="m-btn-practice" class="mode-btn active" onclick="switchMode('practice')">🎮 2. Kiểm Tra Dạng Bài</button>
+                <button id="m-btn-review" class="mode-btn" onclick="switchMode('review')" style="position:relative;">
+                    🔄 3. Ôn Luyện Lỗi Sai 
+                    <span id="review-count-badge" style="position:absolute; top:-5px; right:-2px; background:var(--danger); color:white; font-size:10px; padding:2px 6px; border-radius:10px; display:none;">0</span>
+                </button>
+            </div>
 
-                <div id="tab-game" class="tab-content active">
-                    <div class="game-box">
-                        <div class="timer-container"><div class="timer-bar" id="t-bar"></div></div>
-                        <p style="font-weight: bold; margin-bottom: 10px;">Thử thách của: <span id="current-player-name">Clara</span></p>
-                        
-                        <div class="theory-box" id="game-theory">Đang tải lý thuyết bí kíp...</div>
-                        
-                        <div class="question" id="game-question">Đang tải câu hỏi...</div>
-                        <div class="options-grid" id="game-options"></div>
-                        <p id="game-feedback" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
-                        <button id="btn-next-question" class="btn-action" onclick="loadNextQuestion()" style="display: none; background: #6C757D;">Qua câu tiếp theo ➡️</button>
-                    </div>
-                </div>
+            <!-- PHÂN HỆ LÝ THUYẾT -->
+            <div id="pane-theory" class="card" style="display:none;">
+                <h2 id="theory-title-node">Sơ đồ lý thuyết bài học</h2>
+                <div class="theory-box" id="theory-content-box">Đang tải lý thuyết...</div>
+                <button class="btn-action" onclick="switchMode('practice')">Học xong lý thuyết, Tiến hành làm bài luôn 🚀</button>
+            </div>
 
-                <div id="tab-review" class="tab-content">
-                    <div class="game-box" style="background: #FFFDF3; border-color: var(--warning);">
-                        <h3>👨‍👩‍👦 Bố Mẹ đồng hành cùng con</h3>
-                        <p style="margin-bottom: 15px; font-size: 14px; color: #555;">Xem lại chi tiết các câu các con đã chọn dưới đây để chấm điểm thực tế nhé!</p>
-                        <div id="review-zone" style="text-align: left;"></div>
-                        <button class="btn-action" onclick="gradeStudent()" style="background: var(--success); margin-top: 15px;">Chốt điểm ngày học cho con 🌟</button>
-                    </div>
+            <!-- PHÂN HỆ LÀM BÀI -->
+            <div id="pane-practice" class="card">
+                <div class="timer-container"><div class="timer-bar" id="t-bar"></div></div>
+                <div class="game-box">
+                    <p style="font-size: 13px; color:#666; margin-bottom: 5px;">Học sinh: <strong id="student-display-name">Clara</strong> | <span id="current-topic-name-display" style="font-weight:600; color:var(--primary);">Dạng bài</span></p>
+                    <button class="audio-btn" onclick="speakCurrentQuestion()">🔊 Nghe đọc đề bài</button>
+                    <div class="question" id="game-question">Đang tải câu hỏi...</div>
+                    <div class="options-grid" id="game-options"></div>
+                    <p id="game-feedback" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
+                    <button id="btn-next-question" class="btn-action" onclick="loadNextQuestion()" style="display: none; background: #6C757D;">Qua câu tiếp theo ➡️</button>
                 </div>
+            </div>
+
+            <!-- PHÂN HỆ ÔN LUYỆN LỖI SAI RIÊNG BIỆT -->
+            <div id="pane-review" class="card" style="display:none;">
+                <h2>🔄 Sổ tay Lỗi Sai & Ôn Luyện Thêm</h2>
+                <p style="font-size:13px; color:#666; margin-bottom:15px;">Tổng hợp những câu hỏi con từng bấm sai lần đầu để luyện tập lại chuyên sâu.</p>
+                <div id="pane-review-list"></div>
             </div>
         </div>
     </div>
@@ -154,55 +144,131 @@
 
 <script>
     let currentStudent = 'ut';
-    let currentIndex = 0; 
+    let currentTopic = '';
+    let currentQuestionIndex = 0;
     let currentQuestionData = {};
+    let currentWrongAttempts = [];
+    let currentMode = 'practice'; // theory, practice, review
     let timerInterval = null;
-    let timeLeft = 30; 
-    const maxTime = 30; // 30 giây bấm giờ phản xạ cho mỗi câu
+    let timeLeft = 30;
+    const maxTime = 30;
 
-    let defaultData = {
-        ut: { score: 0, logs: [] },
-        giua: { score: 0, logs: [] },
-        lon: { score: 0, logs: [] }
-    };
-    
-    let appData = JSON.parse(localStorage.getItem('mathKidsGitHubData_v1')) || defaultData;
+    // Cấu trúc lưu trữ nâng cấp chuyên sâu
+    // tracking[student][topic] = { isCompleted100: true/false, attempts: { qId: { isFirstRight: true/false, isDone: true/false } }, wrongPool: [] }
+    let defaultTracking = { ut: {}, giua: {}, lon: {} };
+    let appTracking = JSON.parse(localStorage.getItem('mathKidsEnterpriseTrack_v4')) || defaultTracking;
 
-    function saveData() {
-        localStorage.setItem('mathKidsGitHubData_v1', JSON.stringify(appData));
+    function saveTracking() {
+        localStorage.setItem('mathKidsEnterpriseTrack_v4', JSON.stringify(appTracking));
+    }
+
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            let cleanText = text.replace(/[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDC00-\uDFFF]/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.lang = 'vi-VN';
+            utterance.rate = 0.95;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    function speakCurrentQuestion() {
+        if (currentQuestionData && currentQuestionData.question) {
+            speakText(currentQuestionData.question);
+        }
     }
 
     function selectStudent(studentId) {
         currentStudent = studentId;
-        currentIndex = 0; 
+        
+        // Lấy dạng bài đầu tiên của bé làm mặc định
+        const topics = Object.keys(QUESTION_BANK[studentId]);
+        currentTopic = topics[0] || '';
+        currentQuestionIndex = 0;
+        
         document.querySelectorAll('.student-card').forEach(c => c.classList.remove('active'));
-        const card = document.getElementById(`card-${studentId}`);
-        if(card) card.classList.add('active');
+        document.getElementById(`card-${studentId}`).classList.add('active');
         
         const nameMap = { ut: 'Clara', giua: 'Cris', lon: 'Simon' };
-        document.getElementById('current-player-name').innerText = nameMap[studentId];
+        document.getElementById('student-display-name').innerText = nameMap[studentId];
         
-        const reviewBtn = document.getElementById('review-tab-btn');
-        if(reviewBtn) {
-            reviewBtn.style.display = (studentId === 'ut') ? 'none' : 'block';
-        }
-        switchTab('game');
+        // Khởi tạo bộ nhớ theo dõi cho dạng bài nếu chưa có
+        if (!appTracking[currentStudent]) appTracking[currentStudent] = {};
+        topics.forEach(t => {
+            if (!appTracking[currentStudent][t]) {
+                appTracking[currentStudent][t] = { isCompleted100: false, attempts: {}, wrongPool: [] };
+            }
+        });
+
+        renderTopicMenu();
+        switchMode('practice');
     }
 
-    function switchTab(tabId) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    function renderTopicMenu() {
+        const menu = document.getElementById('topic-list-menu');
+        menu.innerHTML = '';
+        const topics = Object.keys(QUESTION_BANK[currentStudent]);
         
-        const tabBtn = document.getElementById(`${tabId}-tab-btn`);
-        if(tabBtn) tabBtn.classList.add('active');
-        const content = document.getElementById(`tab-${tabId}`);
-        if(content) content.classList.add('active');
+        topics.forEach(topicName => {
+            const dataNode = appTracking[currentStudent][topicName] || { isCompleted100: false, wrongPool: [] };
+            
+            let badgeHtml = '<span class="status-badge badge-empty">Chưa học</span>';
+            if (dataNode.isCompleted100) {
+                badgeHtml = '<span class="status-badge badge-100">Đạt 100% ⭐</span>';
+            } else if (Object.keys(dataNode.attempts || {}).length > 0) {
+                badgeHtml = '<span class="status-badge badge-pending">Cần cải thiện</span>';
+            }
+
+            const div = document.createElement('div');
+            div.className = `topic-item ${topicName === currentTopic ? 'active' : ''}`;
+            div.onclick = () => {
+                currentTopic = topicName;
+                currentQuestionIndex = 0;
+                renderTopicMenu();
+                switchMode(currentMode);
+            };
+            div.innerHTML = `<div>${topicName}</div> ${badgeHtml}`;
+            menu.appendChild(div);
+        });
         
-        if(tabId === 'review') {
-            clearInterval(timerInterval);
-            renderReviewZone();
+        // Cập nhật số lượng câu sai đang nằm trong bể ôn tập
+        updateReviewBadgeCount();
+    }
+
+    function updateReviewBadgeCount() {
+        const node = appTracking[currentStudent][currentTopic];
+        const badge = document.getElementById('review-count-badge');
+        if (node && node.wrongPool && node.wrongPool.length > 0) {
+            badge.innerText = node.wrongPool.length;
+            badge.style.display = 'inline-block';
         } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    function switchMode(modeId) {
+        currentMode = modeId;
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`m-btn-${modeId}`).classList.add('active');
+        
+        document.getElementById('pane-theory').style.display = (modeId === 'theory') ? 'block' : 'none';
+        document.getElementById('pane-practice').style.display = (modeId === 'practice') ? 'block' : 'none';
+        document.getElementById('pane-review').style.display = (modeId === 'review') ? 'block' : 'none';
+        
+        clearInterval(timerInterval);
+        window.speechSynthesis.cancel();
+
+        if (modeId === 'theory') {
+            document.getElementById('theory-title-node').innerText = `📄 Lý Thuyết: ${currentTopic}`;
+            document.getElementById('theory-content-box').innerText = QUESTION_BANK[currentStudent][currentTopic].theory;
+            if(currentStudent === 'ut') {
+                setTimeout(() => speakText(QUESTION_BANK[currentStudent][currentTopic].theory), 500);
+            }
+        } else if (modeId === 'practice') {
             renderQuestion();
+        } else if (modeId === 'review') {
+            renderReviewZone();
         }
     }
 
@@ -221,15 +287,11 @@
                 document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
                 const feedback = document.getElementById('game-feedback');
                 
-                if(currentStudent === 'ut') {
-                    feedback.innerText = '⏰ Hết giờ rồi Clara ơi! Chúng mình thử câu khác nhé.';
-                    feedback.style.color = 'var(--danger)';
-                    setTimeout(loadNextQuestion, 3000);
-                } else {
-                    feedback.innerText = '⏰ Hết giờ! Đáp án đã được ghi nhận là Chưa hoàn thành.';
-                    feedback.style.color = 'var(--danger)';
-                    recordAnswer("Hết giờ ⏰");
-                }
+                feedback.innerText = '⏰ Hết giờ mất rồi! Hệ thống đã ghi nhận lỗi để ôn luyện lại.';
+                feedback.style.color = 'var(--danger)';
+                if(currentStudent === 'ut') speakText('Hết giờ mất rồi!');
+                
+                processAnswerResult(null, false); // Đánh dấu là sai
             }
         }, 1000);
     }
@@ -237,21 +299,22 @@
     function renderQuestion() {
         document.getElementById('game-feedback').innerText = '';
         document.getElementById('btn-next-question').style.display = 'none';
+        document.getElementById('current-topic-name-display').innerText = currentTopic;
+        
         const optionsEl = document.getElementById('game-options');
-        if(!optionsEl) return;
         optionsEl.innerHTML = '';
+        currentWrongAttempts = [];
 
-        if (typeof QUESTION_BANK === 'undefined' || !QUESTION_BANK[currentStudent] || QUESTION_BANK[currentStudent].length === 0) {
-            document.getElementById('game-question').innerText = "⚠️ Đang đồng bộ hoặc không tìm thấy file questions.js!";
-            clearInterval(timerInterval);
+        const qList = QUESTION_BANK[currentStudent][currentTopic].questions;
+        if(currentQuestionIndex >= qList.length) {
+            // Đã làm hết lượt câu hỏi của dạng bài này, tiến hành kiểm tra xem đạt 100% chưa
+            checkTopicCompletionStatus();
+            document.getElementById('game-question').innerText = "🎉 Chúc mừng con đã hoàn thành xong gói câu hỏi của dạng bài này!";
             return;
         }
 
-        if (currentIndex >= QUESTION_BANK[currentStudent].length) currentIndex = 0;
-
-        currentQuestionData = QUESTION_BANK[currentStudent][currentIndex];
+        currentQuestionData = qList[currentQuestionIndex];
         document.getElementById('game-question').innerText = currentQuestionData.question;
-        document.getElementById('game-theory').innerText = currentQuestionData.theory || "Không có tóm tắt lý thuyết.";
 
         currentQuestionData.options.forEach(opt => {
             const btn = document.createElement('button');
@@ -260,115 +323,159 @@
             btn.onclick = () => selectOption(opt, btn);
             optionsEl.appendChild(btn);
         });
-        startTimer();
-    }
 
-    function loadNextQuestion() {
-        currentIndex++;
-        renderQuestion();
+        startTimer();
+        if(currentStudent === 'ut') {
+            setTimeout(speakCurrentQuestion, 400);
+        }
     }
 
     function selectOption(selectedOpt, btnElement) {
-        clearInterval(timerInterval);
-        if (currentStudent === 'ut') {
-            const feedback = document.getElementById('game-feedback');
-            if(selectedOpt === currentQuestionData.answer) {
-                feedback.innerText = '🎉 Đúng rồi! Clara giỏi quá, mười điểm!'; feedback.style.color = 'var(--success)';
-                appData.ut.score = Math.min(appData.ut.score + 10, 100);
-                appData.ut.logs = appData.ut.logs.filter(l => l.q !== currentQuestionData.question);
-                appData.ut.logs.unshift({ q: currentQuestionData.question, myAns: selectedOpt, rightAns: currentQuestionData.answer, status: 'correct' });
-                saveData(); updateUI();
-                setTimeout(loadNextQuestion, 2000);
-            } else {
-                feedback.innerText = '❌ Chưa đúng rồi, Clara thử lại xem nào!'; feedback.style.color = 'var(--danger)';
-                startTimer();
-            }
+        const isCorrect = (selectedOpt === currentQuestionData.answer);
+        const feedback = document.getElementById('game-feedback');
+
+        if(isCorrect) {
+            clearInterval(timerInterval);
+            window.speechSynthesis.cancel();
+            
+            feedback.innerText = '🎉 Đúng rồi! Con giỏi quá, mười điểm!'; feedback.style.color = 'var(--success)';
+            if(currentStudent === 'ut') speakText('Đúng rồi! Con giỏi quá, mười điểm!');
+            
+            processAnswerResult(selectedOpt, true);
         } else {
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            btnElement.classList.add('selected');
-            recordAnswer(selectedOpt);
+            if(!currentWrongAttempts.includes(selectedOpt)) currentWrongAttempts.push(selectedOpt);
+            btnElement.disabled = true;
+            btnElement.style.background = '#F8D7DA';
+            btnElement.style.borderColor = 'var(--danger)';
+            
+            feedback.innerText = '❌ Chưa đúng rồi! Con thử suy nghĩ lại hoặc chọn nút khác xem nhé.';
+            feedback.style.color = 'var(--danger)';
+            if(currentStudent === 'ut') speakText('Chưa đúng rồi! Con thử lại xem.');
+            
+            // Đánh dấu sai lượt đầu ngay khi chọn nhầm nút
+            if(currentWrongAttempts.length === 1) {
+                processAnswerResult(selectedOpt, false);
+            }
         }
     }
 
-    function recordAnswer(answerText) {
-        appData[currentStudent].logs = appData[currentStudent].logs.filter(l => l.q !== currentQuestionData.question);
-        appData[currentStudent].logs.unshift({
-            q: currentQuestionData.question,
-            myAns: answerText,
-            rightAns: currentQuestionData.answer,
-            status: 'saved'
-        });
-        saveData(); updateUI();
-        document.getElementById('game-feedback').innerText = '✔️ Đã lưu bài làm của con. Hãy bấm nút để sang câu tiếp theo!';
-        document.getElementById('game-feedback').style.color = '#4A5568';
-        document.getElementById('btn-next-question').style.display = 'inline-block';
+    function processAnswerResult(selectedOpt, isCorrectFinal) {
+        const node = appTracking[currentStudent][currentTopic];
+        const qId = currentQuestionData.id;
+
+        if(!node.attempts[qId]) {
+            node.attempts[qId] = { isFirstRight: false, isDone: false };
+        }
+
+        // Trường hợp 1: Đúng ngay từ phát bấm đầu tiên
+        if(isCorrectFinal && currentWrongAttempts.length === 0) {
+            node.attempts[qId].isFirstRight = true;
+            node.attempts[qId].isDone = true;
+            document.getElementById('btn-next-question').style.display = 'inline-block';
+            setTimeout(loadNextQuestion, 2000);
+        } 
+        // Trường hợp 2: Bị sai lượt đầu (bấm nhầm hoặc hết giờ) -> Đẩy vào Sổ Tay Lỗi Sai Ôn Luyện
+        else if(!isCorrectFinal && currentWrongAttempts.length === 1) {
+            node.attempts[qId].isFirstRight = false;
+            
+            // Tránh đẩy trùng câu hỏi vào kho ôn luyện
+            if(!node.wrongPool.some(item => item.id === qId)) {
+                node.wrongPool.push({...currentQuestionData});
+            }
+            saveTracking();
+            updateReviewBadgeCount();
+        } 
+        // Trường hợp 3: Bấm sai nhiều lần rồi cuối cùng cũng sửa thành đúng
+        else if(isCorrectFinal && currentWrongAttempts.length > 0) {
+            node.attempts[qId].isDone = true;
+            setTimeout(loadNextQuestion, 2000);
+        }
+        
+        saveTracking();
     }
 
-    function updateUI() {
-        ['ut', 'giua', 'lon'].forEach(id => {
-            document.getElementById(`score-${id}`).innerText = `${appData[id].score} / 100 Điểm`;
-            document.getElementById(`bar-${id}`).style.width = `${appData[id].score}%`;
-        });
-        const nameMap = { ut: 'Clara', giua: 'Cris', lon: 'Simon' };
-        document.getElementById('history-title').innerText = `${nameMap[currentStudent]}:`;
+    function loadNextQuestion() {
+        currentQuestionIndex++;
+        renderQuestion();
+    }
+
+    function checkTopicCompletionStatus() {
+        const node = appTracking[currentStudent][currentTopic];
+        const originalQuestions = QUESTION_BANK[currentStudent][currentTopic].questions;
         
-        const listEl = document.getElementById('log-list');
+        // Kiểm tra xem tất cả các câu trong cấu trúc dữ liệu gốc có đều đạt isFirstRight == true không
+        let perfect100 = true;
+        originalQuestions.forEach(q => {
+            const attempt = node.attempts[q.id];
+            if(!attempt || !attempt.isFirstRight) {
+                perfect100 = false;
+            }
+        });
+
+        node.isCompleted100 = perfect100;
+        saveTracking();
+        renderTopicMenu();
+    }
+
+    // PHÂN HỆ ÔN LUYỆN LỖI SAI (CHUYÊN SÂU BIỆT LẬP)
+    function renderReviewZone() {
+        const listEl = document.getElementById('pane-review-list');
         listEl.innerHTML = '';
-        if(!appData[currentStudent].logs || appData[currentStudent].logs.length === 0) {
-            listEl.innerHTML = '<div style="color:#888; font-size:12px; padding:10px;">Chưa có lịch sử làm bài.</div>';
+        
+        const node = appTracking[currentStudent][currentTopic];
+        if(!node || !node.wrongPool || node.wrongPool.length === 0) {
+            listEl.innerHTML = '<div style="text-align:center; padding:30px; color:var(--success); font-weight:bold;">✨ Tuyệt diệu! Dạng bài này con chưa từng sai hoặc đã dọn sạch lỗi rồi!</div>';
             return;
         }
-        appData[currentStudent].logs.forEach(item => {
+
+        node.wrongPool.forEach((qItem, index) => {
             const div = document.createElement('div');
-            div.className = 'history-item';
-            let badge = `<span class="status-badge status-${item.status}">${item.status==='saved'?'Chờ chấm':item.status==='correct'?'Đúng':'Sai'}</span>`;
-            div.innerHTML = `<div><strong>Q:</strong> ${item.q.substring(0,22)}... (Chọn: ${item.myAns})</div> ${badge}`;
+            div.className = 'review-card';
+            
+            let optionsHtml = '';
+            qItem.options.forEach(opt => {
+                optionsHtml += `<button class="option-btn" style="padding:8px 15px; font-size:13px; margin:5px;" onclick="solveReviewQuestion('${qItem.id}', '${opt}', this)">${opt}</button>`;
+            });
+
+            div.innerHTML = `
+                <p><strong>Câu hỏi ôn tập ${index + 1}:</strong> ${qItem.question}</p>
+                <div style="margin-top:10px;">${optionsHtml}</div>
+                <div id="rev-feedback-${qItem.id}" style="font-weight:bold; font-size:12px; margin-top:5px;"></div>
+            `;
             listEl.appendChild(div);
         });
     }
 
-    function renderReviewZone() {
-        const zone = document.getElementById('review-zone');
-        zone.innerHTML = '';
-        const pendingLogs = appData[currentStudent].logs.filter(l => l.status === 'saved');
-        if(pendingLogs.length === 0) {
-            zone.innerHTML = '<p style="text-align:center; color:#2ECC71; font-weight:bold;">✨ Tuyệt vời! Không có bài làm nào đang chờ chữa.</p>';
-            return;
-        }
-        pendingLogs.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.style.cssText = "background:white; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid #E2E8F0;";
-            div.innerHTML = `
-                <p><strong>Câu ${idx+1}:</strong> ${item.q}</p>
-                <p style="margin-top:5px;">👉 Đáp án con chọn: <strong style="color:var(--primary); font-size:16px;">${item.myAns}</strong></p>
-                <div style="margin-top:8px; display:flex; gap:10px;">
-                    <button class="tab-btn" style="background:var(--success); color:white; padding:4px 12px; font-size:13px;" onclick="setReviewStatus('${item.q.replace(/'/g, "\\'")}', 'correct')">Con làm đúng 👍</button>
-                    <button class="tab-btn" style="background:var(--danger); color:white; padding:4px 12px; font-size:13px;" onclick="setReviewStatus('${item.q.replace(/'/g, "\\'")}', 'wrong')">Con làm sai ❌</button>
-                </div>
-                <p style="color:#E67E22; font-size:12px; margin-top:5px;">(Gợi ý máy tính: ${item.rightAns})</p>
-            `;
-            zone.appendChild(div);
-        });
-    }
+    function solveReviewQuestion(qId, selectedOpt, btnNode) {
+        const node = appTracking[currentStudent][currentTopic];
+        const qItem = node.wrongPool.find(item => item.id === qId);
+        const fb = document.getElementById(`rev-feedback-${qId}`);
 
-    function setReviewStatus(questionText, status) {
-        const item = appData[currentStudent].logs.find(l => l.q === questionText);
-        if(item) {
-            item.status = status;
-            if(status === 'correct') appData[currentStudent].score = Math.min(appData[currentStudent].score + 10, 100);
-            saveData(); updateUI(); renderReviewZone();
+        if (selectedOpt === qItem.answer) {
+            fb.innerText = "🎯 Xuất sắc! Lần này con đã làm hoàn toàn chính xác rồi.";
+            fb.style.color = "var(--success)";
+            if(currentStudent === 'ut') speakText('Đúng rồi!');
+            
+            // Xóa câu hỏi này ra khỏi Hộp Ôn Luyện khi con làm lại đúng thành công
+            node.wrongPool = node.wrongPool.filter(item => item.id !== qId);
+            saveTracking();
+            setTimeout(() => {
+                renderReviewZone();
+                renderTopicMenu();
+            }, 1500);
+        } else {
+            fb.innerText = "❌ Vẫn chưa đúng rồi, con xem kỹ lý thuyết và thử lại xem.";
+            fb.style.color = "var(--danger)";
+            if(currentStudent === 'ut') speakText('Thử lại xem.');
+            btnNode.style.background = "#F8D7DA";
         }
-    }
-
-    function gradeStudent() {
-        alert(`🎉 Đã lưu kết quả chữa bài! Tiến độ hiện tại của con đạt: ${appData[currentStudent].score} Điểm.`);
-        switchTab('game');
     }
 
     function resetAllData() {
-        if(confirm("Bố mẹ có chắc chắn muốn xóa lịch sử điểm để các con làm lại ngày mới?")) {
-            appData = { ut: { score: 0, logs: [] }, giua: { score: 0, logs: [] }, lon: { score: 0, logs: [] } };
-            saveData(); updateUI(); renderQuestion();
+        if(confirm("Bạn có chắc chắn muốn xóa toàn bộ lịch sử đạt 100% và hộp ôn luyện để các con reset lại ngày học mới không?")) {
+            appTracking = { ut: {}, giua: {}, lon: {} };
+            saveTracking();
+            selectStudent('ut');
         }
     }
 

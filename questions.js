@@ -52,13 +52,13 @@ const questionsData = {
                     { id: "cris_d_05", question: "Nếu 5 người thợ xây xong một bức tường mất 6 ngày. Hỏi nếu muốn xây xong bức tường đó trong 3 ngày thì cần bao nhiêu người thợ (năng suất như nhau)?", options: ["10 người", "8 người", "12 người", "15 người"], answer: "10 người" }
                 ]
             },
-            "Dạng 6: Bài toán chuyển động phức hợp": {
+            "Dạng 6: Bài toán chuyển động chuyên sâu": {
                 theory: "💡 <b>Hệ thống công thức chuyển động cần thuộc lòng:</b><br>- Thời gian gặp nhau (Ngược chiều) = Khoảng cách ÷ (Vận tốc 1 + Vận tốc 2)<br>- Thời gian đuổi kịp (Cùng chiều) = Khoảng cách ÷ (Vận tốc lớn - Vận tốc nhỏ)<br>- Vận tốc xuôi dòng = Vận tốc thực + Vận tốc dòng nước.",
                 questions: [
                     { id: "cris_d_06", question: "Một chiếc xuồng máy có vận tốc thực là 15 km/h chạy trên dòng sông có vận tốc nước là 3 km/h. Tính vận tốc của xuồng khi chạy xuôi dòng?", options: ["18 km/h", "12 km/h", "45 km/h", "15 km/h"], answer: "18 km/h" }
                 ]
             },
-            "Dạng 7: Bài toán công việc chung (Làm chung - Làm riêng)": {
+            "Dạng 7: Bài toán công việc chung": {
                 theory: "💡 <b>Phương pháp:</b> Quy đồng khối lượng công việc về đơn vị thời gian. Coi toàn bộ công việc cần hoàn thành là 1 đơn vị. Tìm xem trong 1 giờ hoặc 1 ngày mỗi đối tượng làm được bao nhiêu phần công việc.",
                 questions: [
                     { id: "cris_d_07", question: "Vòi thứ nhất chảy một mình đầy bể mất 3 giờ. Vòi thứ hai chảy một mình đầy bể mất 6 giờ. Hỏi nếu mở cả hai vòi cùng lúc thì sau bao lâu bể đầy nước?", options: ["2 giờ", "4.5 giờ", "4 giờ", "1.5 giờ"], answer: "2 giờ" }
@@ -76,7 +76,7 @@ const questionsData = {
                     { id: "cris_d_09", question: "Một hình thang có độ dài hai đáy lần lượt là 12cm và 8cm, chiều cao bằng trung bình cộng hai đáy. Diện tích hình thang đó là bao nhiêu?", options: ["100 cm²", "200 cm²", "80 cm²", "50 cm²"], answer: "100 cm²" }
                 ]
             },
-            "Dạng 10: Suy luận logic nâng cao (Dirichlet & Giả thiết tạm)": {
+            "Dạng 10: Suy luận logic nâng cao": {
                 theory: "💡 <b>Nguyên lý Dirichlet (Nhốt thỏ):</b> Nếu nhốt (N+1) con thỏ vào N cái chuồng thì chắc chắn sẽ có ít nhất một chuồng chứa từ 2 con thỏ trở lên. Giả thiết tạm: Giả định toàn bộ đối tượng thuộc một nhóm loại để tìm độ lệch phần dư.",
                 questions: [
                     { id: "cris_d_10", question: "Trong một chiếc hộp có 5 viên bi đỏ và 5 viên bi xanh. Hỏi phải bốc ngẫu nhiên ít nhất bao nhiêu viên bi ra ngoài để chắc chắn có 2 viên bi cùng màu?", options: ["3 viên", "2 viên", "6 viên", "5 viên"], answer: "3" }
@@ -89,4 +89,34 @@ const questionsData = {
         "Toán A": {}, "Toán B": {}, "Toán C": {},
         "Toán D": {
             "Dạng 1: Bài toán về số và cấu hình số": { theory: "💡 <b>Bí kíp Số học:</b> Áp dụng tính chất chu kỳ của các số hàng đơn vị.", questions: [{ id: "simon_d_01", question: "Tìm chữ số tận cùng của tích chuỗi số sau: 1 × 3 × 5 × ... × 19?", options: ["5", "0", "1", "9"], answer: "5" }] },
-            "Dạng 2: Biểu đồ thuật toán": { theory: "💡 <b>Lý thuyết:</b> Đi tuần tự theo lưu
+            "Dạng 2: Biểu đồ thuật toán": { theory: "💡 <b>Lý thuyết:</b> Đi tuần tự theo lưu đồ cấu trúc rẽ nhánh.", questions: [{ id: "simon_d_02", question: "Nhập X = 4 vào sơ đồ: X -> Nhân 5 -> Trừ 2. Kết quả thu được là bao nhiêu?", options: ["18", "20", "14", "22"], answer: "18" }] },
+            "Dạng 3: Bài toán Tổng - Hiệu, Tổng - Tỉ, Hiệu - Tỷ nâng cao": { theory: "...", questions: [] },
+            "Dạng 4: Bài toán trung bình cộng nâng cao": { theory: "...", questions: [] },
+            "Dạng 5: Tỉ lệ thuận, tỉ lệ nghịch và tỉ lệ phần trăm": { theory: "...", questions: [] },
+            "Dạng 6: Bài toán chuyển động chuyên sâu": { theory: "...", questions: [] },
+            "Dạng 7: Bài toán công việc chung": { theory: "...", questions: [] },
+            "Dạng 8: Bài toán tính tuổi & trồng cây nâng cao": { theory: "...", questions: [] },
+            "Dạng 9: Bài toán hình học chuyên sâu": { theory: "...", questions: [] },
+            "Dạng 10: Suy luận logic nâng cao": { theory: "...", questions: [] }
+        },
+        "Toán E": {}, "Toán E2": {}, "Toán E3": {}, "Toán E4": {}, "Toán E5": {}
+    },
+    "Toro": {
+        "Toán A": {}, "Toán B": {}, "Toán C": {},
+        "Toán D": {
+            "Dạng 1: Bài toán về số và cấu hình số": { theory: "💡 <b>Bí kíp Số học:</b> Áp dụng tính chất nhân chuỗi để tìm chữ số tận cùng.", questions: [{ id: "toro_d_01", question: "Tìm chữ số tận cùng của tích sau đây: 9 × 9 × 9 × 9 × 9?", options: ["9", "1", "3", "7"], answer: "9" }] },
+            "Dạng 2: Biểu đồ thuật toán": { theory: "...", questions: [] },
+            "Dạng 3: Bài toán Tổng - Hiệu, Tổng - Tỉ, Hiệu - Tỷ nâng cao": { theory: "...", questions: [] },
+            "Dạng 4: Bài toán trung bình cộng nâng cao": { theory: "...", questions: [] },
+            "Dạng 5: Tỉ lệ thuận, tỉ lệ nghịch và tỉ lệ phần trăm": { theory: "...", questions: [] },
+            "Dạng 6: Bài toán chuyển động chuyên sâu": { theory: "...", questions: [] },
+            "Dạng 7: Bài toán công việc chung": { theory: "...", questions: [] },
+            "Dạng 8: Bài toán tính tuổi & trồng cây nâng cao": { theory: "...", questions: [] },
+            "Dạng 9: Bài toán hình học chuyên sâu": { theory: "...", questions: [] },
+            "Dạng 10: Suy luận logic nâng cao": { theory: "...", questions: [] }
+        },
+        "Toán E": {}, "Toán E2": {}, "Toán E3": {}, "Toán E4": {}, "Toán E5": {}
+    }
+};
+
+window.questionsData = questionsData;

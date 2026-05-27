@@ -1,182 +1,172 @@
-// NGÂN HÀNG CÂU HỎI TOÀN DIỆN - PHÂN TÁCH ĐẦY ĐỦ THEO TÀI LIỆU CỦA BA
+// NGÂN HÀNG CÂU HỎI MỞ RỘNG TOÀN DIỆN - PHÂN CẤP TOÁN A, B, C, D
 const QUESTION_BANK = {
-    // 👶 CLARA (2022) - Giữ nguyên các dạng nhận biết mầm non
-    ut: {
-        "Dạng 1: Đếm số lượng phạm vi 5": {
-            theory: `💡 <b>Mẹo cho Clara: Bé chỉ tay vào từng bạn và đếm nhé!</b><br>
-            <img src='https://image.spreadshirtmedia.net/image-server/v1/mp/products/T210A2MPA3176PT17X58Y50D102928509W2490H2490/views/1,width=1200,height=1200,appearanceId=2,backgroundColor=F2F2F2,version=1569421881/one-crab-cartoon-infant-t-shirt.jpg' style='height:70px; margin: 5px;'> 👉 <b>MỘT (1)</b><br>
-            <img src='https://image.spreadshirtmedia.net/image-server/v1/mp/products/T210A2MPA3176PT17X58Y50D102928509W2490H2490/views/1,width=1200,height=1200,appearanceId=2,backgroundColor=F2F2F2,version=1569421881/one-crab-cartoon-infant-t-shirt.jpg' style='height:70px; margin: 5px;'> <img src='https://image.spreadshirtmedia.net/image-server/v1/mp/products/T210A2MPA3176PT17X58Y50D102928509W2490H2490/views/1,width=1200,height=1200,appearanceId=2,backgroundColor=F2F2F2,version=1569421881/one-crab-cartoon-infant-t-shirt.jpg' style='height:70px; margin: 5px;'> 👉 <b>MỘT, HAI (2)</b>`,
+    // CLARA - GIỮ NGUYÊN PHÂN HỆ MẦM NON ĐỌC ĐỀ TỰ ĐỘNG
+    clara: {
+        "Dạng mầm non: Đếm số lượng phạm vi 5": {
+            theory: `💡 Mẹo cho Clara: Bé chỉ tay vào từng bạn và đếm nhé!`,
             questions: [
-                { id: "clara_d1_01", question: "Clara đếm xem có mấy bạn cua đang bò? 🦀🦀🦀", options: ["2", "3", "4", "5"], answer: "3" }
+                { id: "cl_d1_01", question: "Clara đếm xem có mấy bạn cua đang bò? 🦀🦀🦀", options: ["2", "3", "4", "5"], answer: "3" }
             ]
         }
     },
 
-    // 👦 CRIS - TOÁN LỚP 2 & LỚP 3 (Đầy đủ tất cả các phân hệ từ file)
-    giua: {
-        // --- TOÁN LỚP 2 CƠ BẢN ---
-        "Lớp 2 - Dạng 1: Cộng trừ có nhớ phạm vi 100": {
-            theory: `💡 <b>Lý thuyết: Đặt tính thẳng hàng và cộng/trừ từ phải sang trái!</b><br>
-            <img src='https://theschoolrun.com/sites/default/files/article_images/how_to_column_addition_example.jpg' style='width:100%; max-width:220px; display:block; margin:10px 0;'>
-            - Hàng đơn vị thẳng hàng đơn vị, hàng chục thẳng hàng chục.<br>
-            - Khi cộng hàng đơn vị vượt quá 10, nhớ 1 sang hàng chục.<br>
-            - Khi trừ không đủ, mượn 1 chục ở hàng chục (nhớ trả lại khi trừ hàng chục).`,
+    // TOÁN A: NỀN TẢNG & TƯ DUY CẤP ĐỘ 1 (Tương đương chương trình Lớp 2 mở rộng)
+    toan_a: {
+        "Dạng 1: Cộng trừ có nhớ phạm vi 100": {
+            theory: `💡 Đặt tính thẳng hàng: Hàng đơn vị thẳng hàng đơn vị, hàng chục thẳng hàng chục. Cộng/trừ từ phải sang trái. Nhớ cộng thêm phần nhớ vào hàng chục!`,
             questions: [
-                { id: "cris_l2_cb_01", question: "Đặt tính rồi tính: 47 + 28 = ?", options: ["65", "75", "73", "85"], answer: "75" },
-                { id: "cris_l2_cb_02", question: "Thực hiện phép tính trừ: 71 - 36 = ?", options: ["35", "45", "37", "41"], answer: "35" }
+                { id: "a_d1_01", question: "Đặt tính rồi tính: 48 + 37 = ?", options: ["75", "85", "83", "81"], answer: "85" },
+                { id: "a_d1_02", question: "Tìm kết quả của phép tính sau: 92 - 45 = ?", options: ["47", "57", "43", "53"], answer: "47" }
             ]
         },
-        "Lớp 2 - Dạng 2: Bảng nhân, bảng chia (2 đến 5)": {
-            theory: `💡 <b>Lý thuyết: Phép nhân là tổng của các số hạng bằng nhau!</b><br>
-            <img src='https://images.squarespace-cdn.com/content/v1/5bc5dd9a797f7447959b8602/1554904535496-6EAK0XAX4XW6X4RNYY5A/Multiplication+Equal+Groups.png' style='width:100%; max-width:250px; display:block; margin:10px 0;'>
-            - Ví dụ: 4 x 3 nghĩa là có 3 nhóm, mỗi nhóm có 4 bạn vật (4 + 4 + 4 = 12).<br>
-            - Phép chia ngược lại với phép nhân: Chia đều số quả vào các hộp.`,
+        "Dạng 2: Bảng nhân, bảng chia ứng dụng (2 đến 5)": {
+            theory: `💡 Phép nhân là tổng của các số hạng bằng nhau. Phép chia là bài toán chia đều số lượng vật vào các phần bằng nhau.`,
             questions: [
-                { id: "cris_l2_cb_03", question: "Tính nhanh: 5 × 7 = ?", options: ["30", "35", "40", "25"], answer: "35" },
-                { id: "cris_l2_cb_04", question: "Có 24 viên kẹo chia đều cho 4 bạn. Hỏi mỗi bạn được mấy viên?", options: ["5 viên", "6 viên", "7 viên", "8 viên"], answer: "6" }
+                { id: "a_d2_01", question: "Có 5 hộp bánh, mỗi hộp chứa 4 chiếc bánh. Hỏi có tất cả bao nhiêu chiếc bánh?", options: ["20 chiếc", "9 chiếc", "25 chiếc", "15 chiếc"], answer: "20 chiếc" },
+                { id: "a_d2_02", question: "Chia đều 28 quả táo vào 4 rổ. Hỏi mỗi rổ có bao nhiêu quả táo?", options: ["6 quả", "7 quả", "8 quả", "9 quả"], answer: "7 quả" }
             ]
         },
-        "Lớp 2 - Dạng 3: Hình học & Đo lường cơ bản": {
-            theory: `💡 <b>Lý thuyết: Các đơn vị đo độ dài và hình học phẳng</b><br>
-            - Đổi đơn vị: 1m = 10dm = 100cm. 1dm = 10cm.<br>
-            - Chu vi hình tam giác/tứ giác = Tổng độ dài tất cả các cạnh cộng lại với nhau.<br>
-            - Xem giờ: Kim ngắn chỉ giờ, kim dài chỉ phút. Kim dài chỉ số 6 là giờ rưỡi (30 phút).`,
+        "Dạng 3: Bài toán lời văn 1 bước tính (Nhiều/Ít hơn)": {
+            theory: `💡 Đọc kỹ đề bài để xác định đối tượng lớn hơn hay bé hơn:\n- Nhiều hơn: Thực hiện phép cộng.\n- Ít hơn: Thực hiện phép trừ.`,
             questions: [
-                { id: "cris_l2_cb_05", question: "Một hình tam giác có 3 cạnh lần lượt là 5cm, 7cm, 8cm. Chu vi là:", options: ["15cm", "20cm", "22cm", "12cm"], answer: "20cm" },
-                { id: "cris_l2_cb_06", question: "Đổi đơn vị sau: 3m 5dm = ... dm?", options: ["35dm", "8dm", "305dm", "53dm"], answer: "35dm" }
+                { id: "a_d3_01", question: "An có 15 viên bi. Bình có nhiều hơn An 7 viên bi. Hỏi Bình có bao nhiêu viên bi?", options: ["22 viên", "8 viên", "21 viên", "23 viên"], answer: "22 viên" }
             ]
         },
-        // --- TOÁN LỚP 2 NÂNG CAO ---
-        "Lớp 2 - Dạng 4: Tìm thành phần chưa biết (Tìm x)": {
-            theory: `💡 <b>Lý thuyết: Quy tắc tìm x trong các phép tính</b><br>
-            - Muốn tìm số hạng chưa biết: Lấy Tổng trừ đi số hạng đã biết.<br>
-            - Muốn tìm số bị trừ: Lấy Hiệu cộng với số trừ.<br>
-            - Muốn tìm thừa số chưa biết: Lấy Tích chia cho thừa số đã biết.`,
+        "Dạng 4: Hình học Chu vi & Đo lường cơ bản": {
+            theory: `💡 Đổi đơn vị: 1m = 10dm = 100cm. Chu vi tam giác/tứ giác bằng tổng độ dài tất cả các cạnh cộng lại.`,
             questions: [
-                { id: "cris_l2_nc_01", question: "Tìm x, biết: x + 27 = 62", options: ["35", "45", "25", "39"], answer: "35" },
-                { id: "cris_l2_nc_02", question: "Tìm x, biết: x ÷ 4 = 5", options: ["9", "16", "20", "24"], answer: "20" }
+                { id: "a_d4_01", question: "Một hình tam giác có độ dài các cạnh lần lượt là 7cm, 8cm, 10cm. Chu vi của hình tam giác đó là:", options: ["25cm", "15cm", "24cm", "26cm"], answer: "25cm" },
+                { id: "a_d4_02", question: "Không khí trong phòng mát mẻ, đổi đơn vị độ dài sau: 4m 5cm = ... cm?", options: ["45cm", "405cm", "450cm", "54cm"], answer: "405cm" }
             ]
         },
-        "Lớp 2 - Dạng 5: Dãy số theo quy luật & Toán trồng cây": {
-            theory: `💡 <b>Lý thuyết Quy luật và Khoảng cách</b><br>
-            - Dãy số tăng dần: Tìm khoảng cách bằng cách lấy số sau trừ số trước.<br>
-            - Bài toán trồng cây trên đoạn thẳng thẳng đứng: Số cây = (Tổng chiều dài ÷ Khoảng cách giữa 2 cây) + 1 (nếu trồng cả 2 đầu đường).`,
+        "Dạng 5: Tìm x & Số hạng chưa biết": {
+            theory: `💡 Quy tắc tìm thành phần chưa biết:\n- Tìm số hạng: Tổng trừ đi số hạng đã biết.\n- Tìm số bị trừ: Hiệu cộng với số trừ.\n- Tìm thừa số: Tích chia cho thừa số đã biết.`,
             questions: [
-                { id: "cris_l2_nc_03", question: "Tìm số thích hợp điền vào chỗ trống: 3, 7, 11, 15, ...", options: ["17", "18", "19", "20"], answer: "19" },
-                { id: "cris_l2_nc_04", question: "Một đoạn đường dài 20m, người ta trồng cây cách nhau 5m (trồng cả 2 đầu). Hỏi trồng được bao nhiêu cây?", options: ["4 cây", "5 cây", "6 cây", "3 cây"], answer: "5 cây" }
+                { id: "a_d5_01", question: "Tìm x biết: x + 24 = 61", options: ["37", "47", "85", "35"], answer: "37" },
+                { id: "a_d5_02", question: "Tìm x biết: x × 3 = 27", options: ["9", "24", "30", "8"], answer: "9" }
             ]
         },
-        // --- TOÁN LỚP 3 ---
-        "Lớp 3 - Dạng 6: Thứ tự thực hiện biểu thức (Tính giá trị)": {
-            theory: `💡 <b>Lý thuyết tự thực hiện phép tính:</b><br>
-            - Nếu chỉ có cộng, trừ hoặc nhân, chia: Làm từ TRÁI sang PHẢI.<br>
-            - Nếu có đủ các phép tính: Ưu tiên thực hiện Nhân, Chia TRƯỚC rồi mới đến Cộng, Trừ SAU.<br>
-            - Nếu có dấu ngoặc đơn ( ): Bắt buộc phải tính trong ngoặc trước tiên!`,
+        "Dạng 6: Dãy số quy luật & Toán trồng cây cơ bản": {
+            theory: `💡 Toán trồng cây trên đoạn thẳng: Số cây = (Tổng chiều dài ÷ Khoảng cách giữa các cây) + 1 (khi trồng ở cả 2 đầu đường).`,
             questions: [
-                { id: "cris_l3_01", question: "Giá trị của biểu thức: 45 + 15 ÷ 3 = ?", options: ["20", "50", "48", "60"], answer: "50" },
-                { id: "cris_l3_02", question: "Giá trị của biểu thức: (32 - 12) × 4 = ?", options: ["80", "48", "64", "16"], answer: "80" }
+                { id: "a_d6_01", question: "Điền số thích hợp vào dãy số quy luật sau: 3, 7, 11, 15, ..., 23", options: ["16", "18", "19", "20"], answer: "19" },
+                { id: "a_d6_02", question: "Một đoạn đường thẳng dài 30m, trồng cây cách nhau 5m (trồng cả hai đầu). Hỏi cần bao nhiêu cây?", options: ["6 cây", "7 cây", "8 cây", "5 cây"], answer: "7 cây" }
             ]
         },
-        "Lớp 3 - Dạng 7: Chuyên đề Tính Tuổi": {
-            theory: `💡 <b>Lý thuyết Cốt lõi: Hiệu số tuổi không bao giờ thay đổi!</b><br>
-            - Dù là 5 năm, 10 năm trước hay sau này, hiệu số tuổi giữa mẹ và con hoặc giữa hai anh em luôn giữ nguyên cố định.<br>
-            - Dựa vào tính chất này để vẽ sơ đồ hoặc lập luận tìm tuổi hiện tại.`,
+        "Dạng 7: Điền chữ số hàng dọc & Phép tính ẩn": {
+            theory: `💡 Phương pháp giải: Tính toán ngược từ hàng đơn vị sang hàng chục để tìm chữ số bị che khuất.`,
             questions: [
-                { id: "cris_l3_03", question: "Hiện nay bố 36 tuổi, con 8 tuổi. Hỏi sau 4 năm nữa, bố hơn con bao nhiêu tuổi?", options: ["28 tuổi", "32 tuổi", "24 tuổi", "40 tuổi"], answer: "28 tuổi" }
+                { id: "a_d7_01", question: "Cho phép tính dọc: A5 + 2B = 72. Tìm giá trị của chữ số A và B?", options: ["A=4, B=7", "A=5, B=7", "A=4, B=6", "A=3, B=7"], answer: "A=4, B=7" }
             ]
         },
-        "Lớp 3 - Dạng 8: Các bài toán cấu tạo số": {
-            theory: `💡 <b>Lý thuyết Phân tích số tự nhiên:</b><br>
-            - Một số có 3 chữ số abc được phân tích thành: a × 100 + b × 10 + c.<br>
-            - Nếu viết thêm một chữ số vào bên trái hoặc bên phải một số, ta cần dựa vào giá trị hàng để xác định số đó tăng lên bao nhiêu đơn vị.`,
+        "Dạng 8: Tư duy Logic loại trừ (Dạng Đề IKMC Cấp 1)": {
+            theory: `💡 Đọc kỹ từng dữ kiện để lập bảng loại trừ dần các trường hợp không thỏa mãn.`,
             questions: [
-                { id: "cris_l3_04", question: "Khi viết thêm chữ số 2 vào bên trái một số có hai chữ số thì số đó tăng thêm bao nhiêu đơn vị?", options: ["2 đơn vị", "20 đơn vị", "200 đơn vị", "2000 đơn vị"], answer: "200 đơn vị" }
+                { id: "a_d8_01", question: "Có 3 bạn An, Bình, Cường. An cao hơn Bình, Bình cao hơn Cường. Hỏi ai là người cao nhất?", options: ["Bạn An", "Bạn Bình", "Bạn Cường", "Không xác định được"], answer: "Bạn An" }
             ]
         }
     },
 
-    // 👧 SIMON - TOÁN LỚP 3 & LỚP 4 (Đầy đủ tất cả các phân hệ từ file)
-    lon: {
-        // --- TOÁN LỚP 3 NÂNG CAO CHO SIMON ---
-        "Lớp 3 - Dạng 1: Toán Tổng - Hiệu cơ bản": {
-            theory: `💡 <b>Lý thuyết Sơ đồ đoạn thẳng cho Toán Tổng - Hiệu:</b><br>
-            <img src='https://i.ytimg.com/vi/36R8qGuhf8k/maxresdefault.jpg' style='width:100%; max-width:280px; display:block; margin:10px 0;'>
-            Công thức bắt buộc nhớ để giải:<br>
-            - <b>Số lớn = (Tổng + Hiệu) ÷ 2</b><br>
-            - <b>Số bé = (Tổng - Hiệu) ÷ 2</b> (Hoặc Số lớn - Hiệu)`,
+    // TOÁN B: PHÁT TRIỂN & CHUYÊN ĐỀ CẤP ĐỘ 2 (Tương đương chương trình Lớp 3 mở rộng)
+    toan_b: {
+        "Dạng 1: Thứ tự thực hiện biểu thức & Nhân chia số lớn": {
+            theory: `💡 Quy tắc biểu thức:\n- Trong ngoặc tính trước, ngoài ngoặc tính sau.\n- Nhân chia trước, cộng trừ sau.\n- Chỉ có cộng trừ hoặc nhân chia thì làm từ trái sang phải.`,
             questions: [
-                { id: "simon_l3_01", question: "Hai kho chứa 120 tấn thóc. Kho A nhiều hơn kho B 20 tấn thóc. Hỏi kho A chứa bao nhiêu tấn?", options: ["50 tấn", "70 tấn", "60 tấn", "80 tấn"], answer: "70 tấn" }
+                { id: "b_d1_01", question: "Tính giá trị biểu thức: 120 + 60 ÷ 3 × 2 = ?", options: ["160", "200", "140", "130"], answer: "160" },
+                { id: "b_d1_02", question: "Tính giá trị biểu thức toán học: (45 - 15) × 4 = ?", options: ["120", "60", "90", "150"], answer: "120" }
             ]
         },
-        "Lớp 3 - Dạng 2: Hình học Chu vi và Diện tích": {
-            theory: `💡 <b>Lý thuyết Hình chữ nhật & Hình vuông:</b><br>
-            <img src='https://static.javatpoint.com/math/perimeter-of-rectangle.png' style='width:100%; max-width:220px; display:block; margin:10px 0;'>
-            - Chu vi hình chữ nhật = (Chiều dài + Chiều rộng) × 2 (Cùng đơn vị đo).<br>
-            - Diện tích hình chữ nhật = Chiều dài × Chiều rộng.<br>
-            - Diện tích hình vuông = Cạnh × Cạnh.`,
+        "Dạng 2: Chuyên đề Tính Tuổi": {
+            theory: `💡 Điểm mấu chốt: Hiệu số tuổi của hai người không bao giờ thay đổi theo thời gian! Dù bao nhiêu năm trôi qua, khoảng cách tuổi vẫn giữ nguyên.`,
             questions: [
-                { id: "simon_l3_02", question: "Một hình chữ nhật có chu vi là 30cm, chiều dài là 9cm. Tính diện tích hình chữ nhật đó?", options: ["54 cm²", "27 cm²", "56 cm²", "45 cm²"], answer: "54 cm²" }
+                { id: "b_d2_01", question: "Hiện nay mẹ 32 tuổi, con 6 tuổi. Hỏi sau 5 năm nữa, mẹ hơn con bao nhiêu tuổi?", options: ["26 tuổi", "31 tuổi", "21 tuổi", "27 tuổi"], answer: "26 tuổi" }
             ]
         },
-        // --- TOÁN LỚP 4 PHÂN HỆ VĂN BẢN ---
-        "Lớp 4 - Dạng 3: Toán Tổng - Tỷ & Hiệu - Tỷ nâng cao": {
-            theory: `💡 <b>Lý thuyết giải bằng Sơ đồ đoạn thẳng:</b><br>
-            <img src='https://hoclieu.vn/wp-content/uploads/2019/12/tong-ty.png' style='width:100%; max-width:280px; display:block; margin:10px 0;'>
-            - <b>Bài toán Tổng - Tỷ:</b><br>
-               1. Tìm tổng số phần bằng nhau = Phần số bé + Phần số lớn.<br>
-               2. Giá trị 1 phần = Tổng ÷ Tổng số phần.<br>
-               3. Số bé = Giá trị 1 phần × Số phần số bé.<br>
-            - <b>Bài toán Hiệu - Tỷ:</b> Làm tương tự nhưng bước 1 tính Hiệu số phần bằng nhau.`,
+        "Dạng 3: Toán Tổng - Hiệu & Tổng - Tỷ cơ bản": {
+            theory: `💡 Công thức Tổng - Hiệu cơ bản:\n- Số lớn = (Tổng + Hiệu) ÷ 2\n- Số bé = (Tổng - Hiệu) ÷ 2`,
             questions: [
-                { id: "simon_l4_01", question: "Mẹ hơn con 24 tuổi. Tuổi con bằng 1/4 tuổi mẹ. Tính tuổi của con?", options: ["6 tuổi", "8 tuổi", "32 tuổi", "10 tuổi"], answer: "8 tuổi" },
-                { id: "simon_l4_02", question: "Tổng của hai số là 90. Số thứ nhất gấp 4 lần số thứ hai. Tìm số thứ hai?", options: ["18", "72", "20", "15"], answer: "18" }
+                { id: "b_d3_01", question: "Tổng của hai số là 50, hiệu của hai số là 10. Tìm số lớn?", options: ["30", "20", "40", "25"], answer: "30" }
             ]
         },
-        "Lớp 4 - Dạng 4: Bài toán Công việc chung (Làm chung - Làm riêng)": {
-            theory: `💡 <b>Lý thuyết: Quy đồng khối lượng công việc về đơn vị thời gian (1 giờ/ 1 ngày)</b><br>
-            - Bước 1: Coi toàn bộ công việc cần hoàn thành là 1 đơn vị.<br>
-            - Bước 2: Tìm trong 1 giờ (hoặc 1 ngày) mỗi người một mình làm được bao nhiêu phần công việc.<br>
-            - Bước 3: Tính trong 1 giờ cả hai người cùng làm được bao nhiêu phần. Thời gian làm chung = 1 ÷ (Phần công việc làm chung trong 1 giờ).`,
+        "Dạng 4: Chu vi & Diện tích Hình chữ nhật, Hình vuông": {
+            theory: `💡 Công thức:\n- Chu vi hình chữ nhật = (Dài + Rộng) × 2\n- Diện tích hình chữ nhật = Dài × Rộng\n- Diện tích hình vuông = Cạnh × Cạnh`,
             questions: [
-                { id: "simon_l4_03", question: "Người thứ nhất làm một mình xong công việc mất 4 giờ. Người thứ hai làm một mình mất 6 giờ. Nếu cả hai cùng làm thì sau 1 giờ được bao nhiêu phần công việc?", options: ["1/10", "5/12", "1/2", "2/5"], answer: "5/12" }
+                { id: "b_d4_01", question: "Một mảnh đất hình chữ nhật có chiều rộng 6m, chiều dài gấp 3 lần chiều rộng. Diện tích mảnh đất là:", options: ["108 m²", "48 m²", "18 m²", "54 m²"], answer: "108 m²" }
             ]
         },
-        // --- TOÁN LỚP 4 TƯ DUY LOGIC NÂNG CAO ---
-        "Lớp 4 - Dạng 5: Phương pháp Giả thiết tạm thời": {
-            theory: `💡 <b>Lý thuyết rèn luyện tư duy phản biện:</b><br>
-            - <b>Bài toán mẫu: Gà và Chó.</b><br>
-            - Bước 1: Giả định một trường hợp cực đoan (Ví dụ: Giả sử tất cả con vật đều là Gà - mỗi con có 2 chân).<br>
-            - Bước 2: Tính tổng số chân giả định và so sánh xem hụt mất bao nhiêu chân so với đề bài thực tế.<br>
-            - Bước 3: Số chân hụt mất là do ta đã biến Chó (4 chân) thành Gà (2 chân). Lấy tổng số chân hụt chia cho độ chênh lệch chân (4 - 2 = 2) sẽ ra ngay số con Chó.`,
+        "Dạng 5: Lưu đồ logic & Quy luật cuộc thi Quốc tế IMAS": {
+            theory: `💡 Đi từng bước theo sơ đồ mũi tên quy định để không làm sót hoặc nhầm lẫn dữ kiện toán học.`,
             questions: [
-                { id: "simon_l4_04", question: "Vừa gà vừa chó có 12 con. Đếm được tất cả có 36 cái chân. Hỏi có bao nhiêu con chó?", options: ["4 con", "6 con", "5 con", "3 con"], answer: "6 con" }
+                { id: "b_d5_01", question: "Một số đi qua lưu đồ: Nhập vào số X -> Nhân 3 -> Trừ 5 -> Kết quả ra 10. Hỏi số X ban đầu là mấy?", options: ["5", "4", "6", "15"], answer: "5" }
+            ]
+        }
+    },
+
+    // TOÁN C: NÂNG CAO & GIẢI THUẬT CẤP ĐỘ 3 (Tương đương chương trình Lớp 4 nâng cao)
+    toan_c: {
+        "Dạng 1: Chuyên đề Tổng - Tỷ & Hiệu - Tỷ chuyên sâu": {
+            theory: `💡 Phương pháp giải bài toán Tỷ số:\n1. Vẽ sơ đồ đoạn thẳng biểu diễn các phần.\n2. Tìm tổng (hoặc hiệu) số phần bằng nhau.\n3. Tính giá trị một phần rồi nhân với số phần của đối tượng cần tìm.`,
+            questions: [
+                { id: "c_d1_01", question: "Tổng hai số là 120. Số lớn gấp 3 lần số bé. Tìm số bé?", options: ["30", "90", "40", "20"], answer: "30" },
+                { id: "c_d1_02", question: "An hơn Bình 24 quyển truyện. Số truyện của An bằng 5/2 số truyện của Bình. Hỏi Bình có bao nhiêu quyển truyện?", options: ["16 quyển", "40 quyển", "20 quyển", "24 quyển"], answer: "16 quyển" }
             ]
         },
-        "Lớp 4 - Dạng 6: Dãy số đều đặn (Tìm số hạng thứ n, tính tổng)": {
-            theory: `💡 <b>Hệ thống công thức dãy số cách đều cần thuộc lòng:</b><br>
-            - Khoảng cách (d) = Số hạng liền sau - Số hạng liền trước.<br>
-            - <b>Số hạng thứ n = Số đầu + (n - 1) × Khoảng cách.</b><br>
-            - Số số hạng trong dãy = (Số cuối - Số đầu) ÷ Khoảng cách + 1.<br>
-            - Tổng dãy số = (Số đầu + Số cuối) × Số số hạng ÷ 2.`,
+        "Dạng 2: Bài toán Công việc chung (Làm chung - Làm riêng)": {
+            theory: `💡 Phương pháp đưa về đơn vị thời gian (1 giờ hoặc 1 ngày):\n- Coi toàn bộ khối lượng công việc là 1.\n- Tìm năng suất làm việc trong 1 đơn vị thời gian của từng đối tượng.`,
             questions: [
-                { id: "simon_l4_05", question: "Cho dãy số: 2, 5, 8, 11,... Tìm số hạng thứ 20 của dãy số này?", options: ["59", "61", "60", "62"], answer: "59" }
+                { id: "c_d2_01", question: "Nếu đội A làm một mình thì 4 ngày xong việc. Đội B làm một mình thì 12 ngày xong việc. Hỏi nếu cả hai đội cùng làm chung thì sau bao nhiêu ngày sẽ xong công việc?", options: ["3 ngày", "4 ngày", "5 ngày", "2 ngày"], answer: "3 ngày" }
             ]
         },
-        "Lớp 4 - Dạng 7: Phân số chuỗi & Rút gọn chuỗi phân số quy luật": {
-            theory: `💡 <b>Lý thuyết tách phân số (Telescoping Sum):</b><br>
-            - Nhận biết quy luật: Mẫu số là tích của hai số cách đều nhau.<br>
-            - Công thức tách: 1 / (n × (n+1)) = 1/n - 1/(n+1).<br>
-            - Khi cộng cả chuỗi lại, các phân số ở giữa sẽ tự động triệt tiêu nhau, chỉ còn lại: Phân số đầu tiên trừ đi Phân số cuối cùng.`,
+        "Dạng 3: Hình học nâng cao (Hình bình hành, Hình thoi & Phần bù)": {
+            theory: `💡 Công thức:\n- Diện tích hình bình hành = Đáy × Chiều cao.\n- Diện tích hình thoi = (Tích độ dài hai đường chéo) ÷ 2.`,
             questions: [
-                { id: "simon_l4_06", question: "Tính tổng chuỗi phân số: A = 1/(1×2) + 1/(2×3) + 1/(3×4) + ... + 1/(99×100)", options: ["99/100", "1/100", "1", "49/50"], answer: "99/100" }
+                { id: "c_d3_01", question: "Một thửa ruộng hình bình hành có độ dài đáy là 24m, chiều cao bằng 1/3 độ dài đáy. Tính diện tích thửa ruộng đó?", options: ["192 m²", "576 m²", "72 m²", "64 m²"], answer: "192 m²" }
             ]
         },
-        "Lớp 4 - Dạng 8: Xác định chữ số tận cùng": {
-            theory: `💡 <b>Lý thuyết tìm chữ số tận cùng của một tích:</b><br>
-            - Chữ số tận cùng của một tích bằng chữ số tận cùng của tích các chữ số hàng đơn vị.<br>
-            - Lưu ý đặc biệt: Tích của các số lẻ với số có tận cùng là 5 luôn có tận cùng là 5. Tích của số chẵn với số có tận cùng là 5 luôn có tận cùng là 0. Chữ số tận cùng của các thừa số có tận cùng bằng 1, 5, 6 nhân với chính nó nhiều lần không đổi.`,
+        "Dạng 4: Bài toán Chuyển động đều chuyển tuyến": {
+            theory: `💡 Công thức cốt lõi: Quãng đường (s) = Vận tốc (v) × Thời gian (t).\n- Hai xe chuyển động ngược chiều gặp nhau: Thời gian gặp = Khoảng cách ban đầu ÷ Tổng hai vận tốc.`,
             questions: [
-                { id: "simon_l4_07", question: "Chữ số tận cùng của tích sau là bao nhiêu: 1 × 3 × 5 × 7 × 9 × ... × 99?", options: ["0", "1", "5", "9"], answer: "5" }
+                { id: "c_d4_01", question: "Hai thành phố cách nhau 120km. Một ô tô đi từ A với vận tốc 40km/h, một xe máy đi ngược chiều từ B với vận tốc 20km/h. Hỏi sau bao lâu hai xe gặp nhau?", options: ["2 giờ", "3 giờ", "4 giờ", "1.5 giờ"], answer: "2 giờ" }
+            ]
+        }
+    },
+
+    // TOÁN D: TƯ DUY LOGIC CAO CẤP & ĐẤU TRƯỜNG QUỐC TẾ (TIMO / IKMC / CHẤT LƯỢNG CAO)
+    toan_d: {
+        "Dạng 1: Phương pháp Giả thiết tạm thời (Bài toán Gà và Chó)": {
+            theory: `💡 Tư duy phản biện Giả thiết tạm:\n- Giả sử tất cả 12 con đều là gà. Khi đó tổng số chân sẽ hụt đi so với đề bài.\n- Số chân hụt đi là do ta đã thay thế chó bằng gà. Lấy số chân hụt chia cho chênh lệch chân giữa chó và gà (4 - 2 = 2) sẽ tìm ra số chó!`,
+            questions: [
+                { id: "d_d1_01", question: "Vừa gà vừa chó có tất cả 12 con. Đếm được tổng cộng có 36 cái chân. Hỏi có bao nhiêu con chó?", options: ["6 con", "4 con", "5 con", "8 con"], answer: "6 con" }
+            ]
+        },
+        "Dạng 2: Dãy số cách đều nâng cao (Tìm số hạng thứ n & Tính tổng)": {
+            theory: `💡 Bộ công thức bắt buộc cho mọi kỳ thi Olympic:\n- Số hạng thứ n = Số đầu + (n - 1) × Khoảng cách.\n- Số số hạng = (Số cuối - Số đầu) ÷ Khoảng cách + 1.\n- Tổng dãy số = (Số đầu + Số cuối) × Số số hạng ÷ 2.`,
+            questions: [
+                { id: "d_d2_01", question: "Cho dãy số cách đều: 4, 7, 10, 13, ... Tìm số hạng thứ 30 của dãy số này?", options: ["91", "94", "87", "90"], answer: "91" }
+            ]
+        },
+        "Dạng 3: Phân số chuỗi quy luật (Telescoping Sum)": {
+            theory: `💡 Công thức tách chuỗi phân số tiêu biến:\n 1 / (n × (n+1)) = 1/n - 1/(n+1).\nKhi cộng toàn bộ chuỗi, tất cả các phân số trung gian sẽ triệt tiêu nhau, bài toán chỉ còn lại: Phân số đầu - Phân số cuối!`,
+            questions: [
+                { id: "d_d3_01", question: "Tính nhanh tổng chuỗi phân số sau: A = 1/(1×2) + 1/(2×3) + 1/(3×4) + ... + 1/(49×50)", options: ["49/50", "1/50", "1", "24/25"], answer: "49/50" }
+            ]
+        },
+        "Dạng 4: Xác định chữ số tận cùng của tích lũy thừa": {
+            theory: `💡 Mẹo tính nhanh tận cùng:\n- Tích các thừa số có số lẻ và chứa số có tận cùng bằng 5 luôn kết thúc bằng 5.\n- Tích các số chẵn nhân với số có tận cùng bằng 5 luôn kết thúc bằng 0.`,
+            questions: [
+                { id: "d_d4_01", question: "Tìm chữ số tận cùng của tích chuỗi số sau: 1 × 3 × 5 × 7 × 9 × ... × 2025?", options: ["5", "0", "1", "9"], answer: "5" }
+            ]
+        },
+        "Dạng 5: Chuyên đề Cấu tạo số & Phân tích số tự nhiên": {
+            theory: `💡 Lý thuyết phân tích giá trị các hàng cấu tạo số:\nSố có 3 chữ số được biểu diễn: abc = a × 100 + b × 10 + c.\nNếu viết thêm một chữ số vào bên trái số có 2 chữ số, số đó tăng thêm đúng bằng giá trị hàng vừa thêm.`,
+            questions: [
+                { id: "d_d5_01", question: "Khi ta viết thêm chữ số 5 vào bên trái một số có ba chữ số thì số đó tăng thêm bao nhiêu đơn vị?", options: ["5000 đơn vị", "500 đơn vị", "50 đơn vị", "5 đơn vị"], answer: "5000 đơn vị" }
+            ]
+        },
+        "Dạng 6: Chuyển động nâng cao (Bài toán Đoàn tàu vượt chướng ngại vật)": {
+            theory: `💡 Quy tắc chuyển động đoàn tàu:\n- Đoàn tàu vượt qua một cây cột điện: Quãng đường di chuyển đúng bằng CHIỀU DÀI ĐOÀN TÀU.\n- Đoàn tàu vượt qua một cây cầu dài: Quãng đường di chuyển = Chiều dài tàu + Chiều dài cầu.`,
+            questions: [
+                { id: "d_d6_01", question: "Một đoàn tàu chạy với vận tốc 20 m/s vượt qua một cây cột điện hết đúng 10 giây. Tính chiều dài của đoàn tàu đó?", options: ["200m", "100m", "150m", "50m"], answer: "200m" }
             ]
         }
     }
